@@ -1,25 +1,26 @@
-Filename,Mileage,Gain,Link
-2013 - John Muir Trail Abort.gpx,181.4,0,https://www.firstchurchofthemasochist.com/2013/09/john-muir-trail-happy-isles-to.html
-2018 - Trans Catalina Trail+.gpx,61,14000,https://www.firstchurchofthemasochist.com/2018/03/backpacking-trans-catalina-trail-in.html
-2019 - John Muir Trail.gpx,220,50000,https://www.firstchurchofthemasochist.com/2019/08/john-muir-trail-plus-half-dome-whitney.html
-2020 - Pacific Crest Trail.gpx,2653,"489,000",https://www.firstchurchofthemasochist.com/p/pacific-crest-trail-2020.html
-2020 - Santa Monica Backbone Trail.gpx,67,14000,https://www.firstchurchofthemasochist.com/2020/03/thru-hiking-santa-monica-mountains.html
-2021 - Lone Star Trail.gpx,128,"4,531",https://www.youtube.com/watch?v=u6C5MiMbEek&list=PLgw5mInRAREbvSeJbsUPcQ54foWrfXRaG
-2021 - Eastern Continental Trail (FT+PT+AT+IAT).gpx,"5,000",601000,https://www.youtube.com/watch?v=AV--cTMBeBs&list=PLgw5mInRAREYk-R_M818n0sOWRS1CjZI0
-2022 - Condor Trail.gpx,409,"69,000",https://www.youtube.com/watch?v=mkknqKCD9ao&list=PLgw5mInRAREZsmF_PDRta8OXMDX5zNoor
-2022 - San Diego Trans County Trail.gpx,115,20000,https://www.youtube.com/watch?v=wxmrjn9EvQU&list=PLgw5mInRAREbMUidI4hCFSKpeIi2iy9Jn
-2022 - Santa Monica Backbone Trail.gpx,73,"11,600",https://www.youtube.com/watch?v=L64Xusg2ho0&list=PLgw5mInRAREZt0lnSGIuHM_mOKedsG_lF
-2023 - Arizona Trail Abort.gpx,200,34000,https://www.youtube.com/watch?v=NlUuMkX68Q4&list=PLgw5mInRAREZzByMi-sKxff7kS25muoCQ
-2023 - Continental Divide Trail.gpx,3062,467000,https://www.youtube.com/watch?v=0S2ldIqB7vU&list=PLgw5mInRAREad4yba5tNpXiuPYUKgWfQF
-2023 - Grand Enchantment Trail.gpx,770,82500,https://www.youtube.com/watch?v=VQXsvGa-b5s&list=PLgw5mInRAREbpOGkbtRN66sYyZTU3Vb6P
-2024 - American Discovery Trail Delaware to Moab.gpx,3517,125000,https://www.youtube.com/watch?v=FuPO6YIYetw&list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
-2025 - Bartram Trail+.gpx,118.2,26000,https://www.youtube.com/watch?v=hisCiu9IQwk&list=PLgw5mInRAREY6P1xRzuEwjxT8lMFk6Tj5
-2025 - Benton MacKaye Trail.gpx,291.4,60000,https://www.youtube.com/watch?v=N_iHarDgwQg&list=PLgw5mInRAREYhyhN0bGB6y6LsMSAzcU1h
-2025 - Foothills Trail.gpx,76,13800,https://www.youtube.com/watch?v=OTzaFL09r88&list=PLgw5mInRAREYo0DLaywF7Qdw9WgoUf9eI
-2025 - Vermont Long Trail+.gpx,304.6,72000,https://www.youtube.com/watch?v=v3G-WdyVieQ&list=PLgw5mInRAREbYTDyWjTSNfKNpwH925_yH
-2018 - San Juan Islands Paddle.gpx,63.8,0,https://www.firstchurchofthemasochist.com/2018/06/san-juan-islands-washington-5-day.html
-2019 - Sayward Forest Canoe Route.gpx,32.2,0,https://www.firstchurchofthemasochist.com/2019/07/sayward-forest-canoe-route-vancouver.html
-2022 - Green River Utah Paddle.gpx,116,0,https://www.youtube.com/watch?v=43WfLWrntYs&list=PLgw5mInRAREZ6i-2Hrk-m6HLsQwon24YC
-2022 - Suwannee River.gpx,200,0,https://www.youtube.com/watch?v=hutWs64X4W0&list=PLgw5mInRAREZPGVxm059rxEnA3AgbhhtE
-2023 - Mississippi Source to Sea Paddle.gpx,"2,400",0,https://www.youtube.com/watch?v=YCL3TTaNHuc&list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM
-2025 - Palau | Ocean Hunter 3 Liveaboard.gpx,0,0,https://www.youtube.com/playlist?list=PLgw5mInRAREYkCOBzm_7s5x8T0WEzRBI6
+Filename,Mileage,Gain,Count,Link
+2013 - John Muir Trail Abort.gpx,181.4,0,,https://www.firstchurchofthemasochist.com/2013/09/john-muir-trail-happy-isles-to.html
+2018 - Trans Catalina Trail+.gpx,61,14000,,https://www.firstchurchofthemasochist.com/2018/03/backpacking-trans-catalina-trail-in.html
+2019 - John Muir Trail.gpx,220,50000,,https://www.firstchurchofthemasochist.com/2019/08/john-muir-trail-plus-half-dome-whitney.html
+2020 - Pacific Crest Trail.gpx,2653,"489,000",,https://www.firstchurchofthemasochist.com/p/pacific-crest-trail-2020.html
+2020 - Santa Monica Backbone Trail.gpx,67,14000,,https://www.firstchurchofthemasochist.com/2020/03/thru-hiking-santa-monica-mountains.html
+2021 - Lone Star Trail.gpx,128,"4,531",,https://www.youtube.com/watch?v=u6C5MiMbEek&list=PLgw5mInRAREbvSeJbsUPcQ54foWrfXRaG
+2021 - Eastern Continental Trail (FT+PT+AT+IAT).gpx,"5,000",601000,,https://www.youtube.com/watch?v=AV--cTMBeBs&list=PLgw5mInRAREYk-R_M818n0sOWRS1CjZI0
+2022 - Condor Trail.gpx,409,"69,000",,https://www.youtube.com/watch?v=mkknqKCD9ao&list=PLgw5mInRAREZsmF_PDRta8OXMDX5zNoor
+2022 - San Diego Trans County Trail.gpx,115,20000,,https://www.youtube.com/watch?v=wxmrjn9EvQU&list=PLgw5mInRAREbMUidI4hCFSKpeIi2iy9Jn
+2022 - Santa Monica Backbone Trail.gpx,73,"11,600",,https://www.youtube.com/watch?v=L64Xusg2ho0&list=PLgw5mInRAREZt0lnSGIuHM_mOKedsG_lF
+2023 - Arizona Trail Abort.gpx,200,34000,,https://www.youtube.com/watch?v=NlUuMkX68Q4&list=PLgw5mInRAREZzByMi-sKxff7kS25muoCQ
+2023 - Continental Divide Trail.gpx,3062,467000,,https://www.youtube.com/watch?v=0S2ldIqB7vU&list=PLgw5mInRAREad4yba5tNpXiuPYUKgWfQF
+2023 - Grand Enchantment Trail.gpx,770,82500,,https://www.youtube.com/watch?v=VQXsvGa-b5s&list=PLgw5mInRAREbpOGkbtRN66sYyZTU3Vb6P
+2024 - American Discovery Trail Delaware to Moab.gpx,3517,125000,,https://www.youtube.com/watch?v=FuPO6YIYetw&list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
+2025 - Bartram Trail+.gpx,118.2,26000,,https://www.youtube.com/watch?v=hisCiu9IQwk&list=PLgw5mInRAREY6P1xRzuEwjxT8lMFk6Tj5
+2025 - Benton MacKaye Trail.gpx,291.4,60000,,https://www.youtube.com/watch?v=N_iHarDgwQg&list=PLgw5mInRAREYhyhN0bGB6y6LsMSAzcU1h
+2025 - Foothills Trail.gpx,76,13800,,https://www.youtube.com/watch?v=OTzaFL09r88&list=PLgw5mInRAREYo0DLaywF7Qdw9WgoUf9eI
+2025 - Vermont Long Trail+.gpx,304.6,72000,,https://www.youtube.com/watch?v=v3G-WdyVieQ&list=PLgw5mInRAREbYTDyWjTSNfKNpwH925_yH
+2018 - San Juan Islands Paddle.gpx,63.8,0,,https://www.firstchurchofthemasochist.com/2018/06/san-juan-islands-washington-5-day.html
+2019 - Sayward Forest Canoe Route.gpx,32.2,0,,https://www.firstchurchofthemasochist.com/2019/07/sayward-forest-canoe-route-vancouver.html
+2022 - Green River Utah Paddle.gpx,116,0,,https://www.youtube.com/watch?v=43WfLWrntYs&list=PLgw5mInRAREZ6i-2Hrk-m6HLsQwon24YC
+2022 - Suwannee River.gpx,200,0,,https://www.youtube.com/watch?v=hutWs64X4W0&list=PLgw5mInRAREZPGVxm059rxEnA3AgbhhtE
+2023 - Mississippi Source to Sea Paddle.gpx,"2,400",0,,https://www.youtube.com/watch?v=YCL3TTaNHuc&list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM
+2025 - Palau | Ocean Hunter 3 Liveaboard.gpx,0,0,45,https://www.youtube.com/playlist?list=PLgw5mInRAREYkCOBzm_7s5x8T0WEzRBI6
+2025 - Bonaire | Buddy Dive Resort.gpx,0,0,22,https://www.youtube.com/playlist?list=PLgw5mInRAREbziD5n0jBBsoabSAjJqY_x
