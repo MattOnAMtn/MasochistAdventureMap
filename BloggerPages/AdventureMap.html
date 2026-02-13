@@ -613,7 +613,7 @@
             <div class="quickview-wrapper">
                 <span class="quickview-label">QuickView</span>
                 <select id="quickview-select" class="quickview-select">
-                    <option value="world" selected>World</option>
+                    <option value="world">World</option>
                     <option value="us">United States</option>
                     <option value="australia">Australia</option>
                 </select>
@@ -792,9 +792,10 @@
             minZoom: 2
         });
 
-        // Set initial view based on screen size to match final view
+        // Set initial view based on screen size
+        // Mobile defaults to US QuickView, desktop defaults to World
         if (window.innerWidth <= 768) {
-            map.setView([39, -98], 3);
+            map.fitBounds([[24, -125], [50, -66]], { padding: [20, 20] });
         } else {
             map.setView([25.48, 0], 2);
         }
@@ -818,11 +819,12 @@
         let allLayers = [];
         let adventureLayerMap = new Map();
 
-        // Filter state
+        // Filter state - mobile defaults to US view (no dives), desktop shows all
+        const isMobile = window.innerWidth <= 768;
         const filterState = {
             hikes: true,
             paddles: true,
-            dives: true
+            dives: !isMobile
         };
 
         // Apply filters to map and list
@@ -935,17 +937,13 @@
                     document.getElementById('filter-dives').checked = true;
                     applyFilters();
 
-                    if (window.innerWidth <= 768) {
-                        map.setView([39, -98], 3);
-                    } else {
-                        const allAdventures = [...allHikes, ...allPaddles, ...allDives];
-                        const bounds = [];
-                        allAdventures.forEach(a => {
-                            if (a && a.coordinates) bounds.push(...a.coordinates);
-                        });
-                        if (bounds.length > 0) {
-                            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 5 });
-                        }
+                    const allAdventures = [...allHikes, ...allPaddles, ...allDives];
+                    const bounds = [];
+                    allAdventures.forEach(a => {
+                        if (a && a.coordinates) bounds.push(...a.coordinates);
+                    });
+                    if (bounds.length > 0) {
+                        map.fitBounds(bounds, { padding: [20, 20], maxZoom: 5 });
                     }
                 } else if (value === 'us') {
                     filterState.hikes = true;
@@ -957,7 +955,7 @@
                     document.getElementById('filter-dives').checked = false;
                     applyFilters();
 
-                    map.setView([39, -98], 4);
+                    map.fitBounds([[24, -125], [50, -66]], { padding: [20, 20] });
                 } else if (value === 'australia') {
                     filterState.hikes = true;
                     filterState.paddles = true;
@@ -968,13 +966,22 @@
                     document.getElementById('filter-dives').checked = false;
                     applyFilters();
 
-                    map.setView([-28, 135], 4);
+                    map.fitBounds([[-39, 114], [-12, 153]], { padding: [20, 20] });
                 }
             });
         }
 
         // Initialize filters when page loads
         initializeFilters();
+
+        // Set default QuickView selection and filter checkboxes
+        // On mobile, default to US QuickView; on desktop, default to World
+        if (isMobile) {
+            document.getElementById('quickview-select').value = 'us';
+            document.getElementById('filter-dives').checked = false;
+        } else {
+            document.getElementById('quickview-select').value = 'world';
+        }
 
         // Parse GPX file (JSON format)
         function parseGPX(jsonData, filename, color, activityType) {
@@ -1585,6 +1592,12 @@
 
                 updateStats();
                 displayAdventureList();
+
+                // On mobile, apply filters after all adventures are loaded
+                // to hide dives (matching the default US QuickView)
+                if (isMobile) {
+                    applyFilters();
+                }
 
                 document.getElementById('loading').style.display = 'none';
 
