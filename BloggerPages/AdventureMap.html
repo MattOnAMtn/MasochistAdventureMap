@@ -177,7 +177,7 @@
         #map {
             height: 350px;
             width: calc(100% - 30px);
-            margin: 0 15px 20px 15px;
+            margin: 0 15px 10px 15px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
@@ -197,6 +197,78 @@
         @media (max-width: 768px) {
             #map {
                 height: 400px;
+            }
+        }
+        
+        /* Filter controls */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 15px;
+            margin: 0 15px 20px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+        
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .filter-checkbox:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .filter-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .filter-label {
+            font-size: 0.95em;
+            color: #333;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-controls {
+                gap: 15px;
+                padding: 8px 10px;
+                margin: 0 10px 15px 10px;
+            }
+            
+            .filter-checkbox {
+                padding: 4px 8px;
+            }
+            
+            .filter-checkbox input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
+            }
+            
+            .filter-label {
+                font-size: 0.9em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-controls {
+                gap: 10px;
+            }
+            
+            .filter-label {
+                font-size: 0.85em;
             }
         }
         
@@ -266,6 +338,10 @@
         
         .hike-item:last-child {
             border-bottom: none;
+        }
+        
+        .hike-item.hidden {
+            display: none;
         }
         
         .hike-name {
@@ -478,6 +554,21 @@
         
         <div id="map"></div>
         
+        <div class="filter-controls">
+            <label class="filter-checkbox">
+                <input type="checkbox" id="filter-hikes" checked>
+                <span class="filter-label">🥾 Hikes</span>
+            </label>
+            <label class="filter-checkbox">
+                <input type="checkbox" id="filter-paddles" checked>
+                <span class="filter-label">🚣 Paddles</span>
+            </label>
+            <label class="filter-checkbox">
+                <input type="checkbox" id="filter-dives" checked>
+                <span class="filter-label">🤿 Dives</span>
+            </label>
+        </div>
+        
         <div class="hike-list" id="hike-list" style="display: none;">
             <div id="hikes-container"></div>
         </div>
@@ -684,6 +775,109 @@
         let allDives = [];
         let allLayers = [];
         let adventureLayerMap = new Map();
+        
+        // Filter state
+        const filterState = {
+            hikes: true,
+            paddles: true,
+            dives: true
+        };
+        
+        // Apply filters to map and list
+        function applyFilters() {
+            // Filter map layers
+            allHikes.forEach(hike => {
+                const layers = adventureLayerMap.get(hike);
+                if (layers) {
+                    layers.forEach(layer => {
+                        if (filterState.hikes) {
+                            if (!map.hasLayer(layer)) {
+                                map.addLayer(layer);
+                            }
+                        } else {
+                            if (map.hasLayer(layer)) {
+                                map.removeLayer(layer);
+                            }
+                        }
+                    });
+                }
+            });
+            
+            allPaddles.forEach(paddle => {
+                const layers = adventureLayerMap.get(paddle);
+                if (layers) {
+                    layers.forEach(layer => {
+                        if (filterState.paddles) {
+                            if (!map.hasLayer(layer)) {
+                                map.addLayer(layer);
+                            }
+                        } else {
+                            if (map.hasLayer(layer)) {
+                                map.removeLayer(layer);
+                            }
+                        }
+                    });
+                }
+            });
+            
+            allDives.forEach(dive => {
+                const layers = adventureLayerMap.get(dive);
+                if (layers) {
+                    layers.forEach(markerKey => {
+                        const marker = window.diveMarkersByKey?.get(markerKey);
+                        if (marker) {
+                            if (filterState.dives) {
+                                if (!map.hasLayer(marker)) {
+                                    map.addLayer(marker);
+                                }
+                            } else {
+                                if (map.hasLayer(marker)) {
+                                    map.removeLayer(marker);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            
+            // Filter list items
+            const allItems = document.querySelectorAll('.hike-item');
+            allItems.forEach(item => {
+                const adventure = item._adventure;
+                if (adventure) {
+                    if (adventure.activityType === 'hike' && !filterState.hikes) {
+                        item.classList.add('hidden');
+                    } else if (adventure.activityType === 'paddle' && !filterState.paddles) {
+                        item.classList.add('hidden');
+                    } else if (adventure.activityType === 'dive' && !filterState.dives) {
+                        item.classList.add('hidden');
+                    } else {
+                        item.classList.remove('hidden');
+                    }
+                }
+            });
+        }
+        
+        // Set up filter event listeners
+        function initializeFilters() {
+            document.getElementById('filter-hikes').addEventListener('change', (e) => {
+                filterState.hikes = e.target.checked;
+                applyFilters();
+            });
+            
+            document.getElementById('filter-paddles').addEventListener('change', (e) => {
+                filterState.paddles = e.target.checked;
+                applyFilters();
+            });
+            
+            document.getElementById('filter-dives').addEventListener('change', (e) => {
+                filterState.dives = e.target.checked;
+                applyFilters();
+            });
+        }
+        
+        // Initialize filters when page loads
+        initializeFilters();
         
         // Parse GPX file (JSON format)
         function parseGPX(jsonData, filename, color, activityType) {
@@ -1396,6 +1590,9 @@
             if (isFuture) {
                 hikeItem.classList.add('future-trip');
             }
+            
+            // Store reference to adventure for filtering
+            hikeItem._adventure = adventure;
             
             // Handle dive sites display
             if (adventure.activityType === 'dive') {
