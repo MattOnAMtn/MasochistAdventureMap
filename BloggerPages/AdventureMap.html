@@ -639,9 +639,12 @@
         const GITHUB_USER = 'MattOnAMtn';
         const GITHUB_REPO = 'MasochistAdventureMap';
         const GITHUB_BRANCH = 'main';
-        const HIKES_FOLDER = 'hikes';
-        const PADDLES_FOLDER = 'paddles';
-        const DIVES_FOLDER = 'dives';
+        // Map CSV type values to folder names and internal activity types
+        const TYPE_CONFIG = {
+            'hike':   { folder: 'hikes',   activityType: 'hike' },
+            'paddle': { folder: 'paddles', activityType: 'paddle' },
+            'dive':   { folder: 'dives',   activityType: 'dive' }
+        };
         const METADATA_FILE = 'AdventureMapMetadata.csv';
         // ============================================
 
@@ -725,15 +728,16 @@
 
                     // Parse CSV properly handling quoted fields with commas
                     const parts = parseCSVLine(line);
-                    if (parts.length >= 3) {
-                        // CSV format: start_date,end_date,filename,mileage,elevation,count,youtube_link
+                    if (parts.length >= 4) {
+                        // CSV format: start_date,end_date,type,filename,mileage,elevation,count,youtube_link
                         const startDate = parts[0].trim();
                         const endDate = parts[1].trim();
-                        const filename = parts[2].trim();
-                        const mileageStr = parts.length >= 4 ? parts[3].trim().replace(/,/g, '') : '';
-                        const elevationStr = parts.length >= 5 ? parts[4].trim().replace(/,/g, '') : '';
-                        const countStr = parts.length >= 6 ? parts[5].trim().replace(/,/g, '') : '';
-                        const youtubeLink = parts.length >= 7 ? parts[6].trim() : '';
+                        const type = parts[2].trim().toLowerCase();
+                        const filename = parts[3].trim();
+                        const mileageStr = parts.length >= 5 ? parts[4].trim().replace(/,/g, '') : '';
+                        const elevationStr = parts.length >= 6 ? parts[5].trim().replace(/,/g, '') : '';
+                        const countStr = parts.length >= 7 ? parts[6].trim().replace(/,/g, '') : '';
+                        const youtubeLink = parts.length >= 8 ? parts[7].trim() : '';
 
                         const mileage = parseFloat(mileageStr);
                         const elevation = parseFloat(elevationStr);
@@ -745,13 +749,14 @@
                         metadataLookup.set(filename, {
                             start_date: (startDate && startDate.length > 0) ? startDate : null,
                             end_date: (endDate && endDate.length > 0) ? endDate : null,
+                            type: type,
                             mileage: (mileageStr && !isNaN(mileage)) ? mileage : null,
                             elevation: (elevationStr && !isNaN(elevation)) ? elevation : null,
                             count: (countStr && !isNaN(count) && count > 0) ? count : null,
                             youtubeLink: (youtubeLink && youtubeLink.length > 0) ? youtubeLink : null
                         });
 
-                        console.log(`Loaded: ${filename} - start: ${startDate}, end: ${endDate}, ${mileage} mi, ${elevation} ft, count: ${count}`);
+                        console.log(`Loaded: ${filename} (${type}) - start: ${startDate}, end: ${endDate}, ${mileage} mi, ${elevation} ft, count: ${count}`);
                     }
                 }
 
@@ -784,6 +789,17 @@
             return result;
         }
 
+        // Detect mobile and load saved preferences early (needed for initial map view)
+        const isMobile = window.innerWidth <= 768;
+        function loadPreferences() {
+            try {
+                const saved = localStorage.getItem('adventureMapPrefs');
+                if (saved) return JSON.parse(saved);
+            } catch(e) {}
+            return null;
+        }
+        const savedPrefs = loadPreferences();
+
         // Initialize map - centered differently for mobile vs desktop
         const map = L.map('map', {
             worldCopyJump: false,
@@ -792,11 +808,14 @@
             minZoom: 2
         });
 
-        // Set initial view based on screen size
-        // Mobile defaults to US QuickView, desktop defaults to World
-        if (window.innerWidth <= 768) {
+        // Set initial view based on saved QuickView or defaults
+        const initialQV = savedPrefs ? savedPrefs.quickview : (isMobile ? 'us' : 'world');
+        if (initialQV === 'us') {
             map.fitBounds([[24, -125], [50, -66]], { padding: [20, 20] });
+        } else if (initialQV === 'australia') {
+            map.fitBounds([[-39, 114], [-12, 153]], { padding: [20, 20] });
         } else {
+            // World or empty — start with world view, will fitBounds after data loads
             map.setView([25.48, 0], 2);
         }
 
@@ -819,9 +838,23 @@
         let allLayers = [];
         let adventureLayerMap = new Map();
 
-        // Filter state - mobile defaults to US view (no dives), desktop shows all
-        const isMobile = window.innerWidth <= 768;
-        const filterState = {
+        // Save preferences to localStorage
+        function savePreferences() {
+            const prefs = {
+                quickview: document.getElementById('quickview-select').value,
+                hikes: filterState.hikes,
+                paddles: filterState.paddles,
+                dives: filterState.dives
+            };
+            try { localStorage.setItem('adventureMapPrefs', JSON.stringify(prefs)); } catch(e) {}
+        }
+
+        // Filter state - load from saved prefs, or default (mobile: US/no dives, desktop: World/all)
+        const filterState = savedPrefs ? {
+            hikes: savedPrefs.hikes,
+            paddles: savedPrefs.paddles,
+            dives: savedPrefs.dives
+        } : {
             hikes: true,
             paddles: true,
             dives: !isMobile
@@ -908,18 +941,21 @@
                 filterState.hikes = e.target.checked;
                 applyFilters();
                 document.getElementById('quickview-select').value = '';
+                savePreferences();
             });
 
             document.getElementById('filter-paddles').addEventListener('change', (e) => {
                 filterState.paddles = e.target.checked;
                 applyFilters();
                 document.getElementById('quickview-select').value = '';
+                savePreferences();
             });
 
             document.getElementById('filter-dives').addEventListener('change', (e) => {
                 filterState.dives = e.target.checked;
                 applyFilters();
                 document.getElementById('quickview-select').value = '';
+                savePreferences();
             });
 
             // QuickView dropdown
@@ -945,6 +981,7 @@
                     if (bounds.length > 0) {
                         map.fitBounds(bounds, { padding: [20, 20], maxZoom: 5 });
                     }
+                    savePreferences();
                 } else if (value === 'us') {
                     filterState.hikes = true;
                     filterState.paddles = true;
@@ -956,6 +993,7 @@
                     applyFilters();
 
                     map.fitBounds([[24, -125], [50, -66]], { padding: [20, 20] });
+                    savePreferences();
                 } else if (value === 'australia') {
                     filterState.hikes = true;
                     filterState.paddles = true;
@@ -967,6 +1005,7 @@
                     applyFilters();
 
                     map.fitBounds([[-39, 114], [-12, 153]], { padding: [20, 20] });
+                    savePreferences();
                 }
             });
         }
@@ -974,9 +1013,13 @@
         // Initialize filters when page loads
         initializeFilters();
 
-        // Set default QuickView selection and filter checkboxes
-        // On mobile, default to US QuickView; on desktop, default to World
-        if (isMobile) {
+        // Set QuickView and filter checkboxes from saved prefs or defaults
+        if (savedPrefs) {
+            document.getElementById('quickview-select').value = savedPrefs.quickview || '';
+            document.getElementById('filter-hikes').checked = savedPrefs.hikes;
+            document.getElementById('filter-paddles').checked = savedPrefs.paddles;
+            document.getElementById('filter-dives').checked = savedPrefs.dives;
+        } else if (isMobile) {
             document.getElementById('quickview-select').value = 'us';
             document.getElementById('filter-dives').checked = false;
         } else {
@@ -1404,157 +1447,65 @@
                 .openOn(map);
         }
 
-        // Load GPX files from GitHub
+        // Load adventure files from GitHub using raw.githubusercontent.com (no API rate limits)
+        // Filenames and types come from the CSV metadata
         async function loadAdventuresFromGitHub() {
             try {
-                // Load metadata first
+                // Load metadata first - this gives us all filenames and types
                 await loadMetadata();
 
-                // Load hikes - only look for .json files
-                const hikesApiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${HIKES_FOLDER}?ref=${GITHUB_BRANCH}`;
-                const hikesResponse = await fetch(hikesApiUrl);
+                const rawBase = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 
-                let hikeFiles = [];
-                if (hikesResponse.ok) {
-                    const hikesData = await hikesResponse.json();
-                    hikeFiles = hikesData.filter(file => file.name.endsWith('.json'));
-                    console.log('Found hike files:', hikeFiles.map(f => f.name));
-                }
-
-                // Load paddles - only look for .json files
-                const paddlesApiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${PADDLES_FOLDER}?ref=${GITHUB_BRANCH}`;
-                const paddlesResponse = await fetch(paddlesApiUrl);
-
-                let paddleFiles = [];
-                if (paddlesResponse.ok) {
-                    const paddlesData = await paddlesResponse.json();
-                    paddleFiles = paddlesData.filter(file => file.name.endsWith('.json'));
-                    console.log('Found paddle files:', paddleFiles.map(f => f.name));
-                }
-
-                // Load dives - only look for .json files
-                const divesApiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DIVES_FOLDER}?ref=${GITHUB_BRANCH}`;
-                const divesResponse = await fetch(divesApiUrl);
-
-                let diveFiles = [];
-                if (divesResponse.ok) {
-                    const divesData = await divesResponse.json();
-                    diveFiles = divesData.filter(file => file.name.endsWith('.json'));
-                    console.log('Found dive files:', diveFiles.map(f => f.name));
-                }
-
-                if (hikeFiles.length === 0 && paddleFiles.length === 0 && diveFiles.length === 0) {
-                    throw new Error('No JSON files found in hikes, paddles, or dives folders.');
+                if (metadataOrder.length === 0) {
+                    throw new Error('No adventures found in metadata CSV.');
                 }
 
                 const t0 = performance.now();
+                let colorIndex = 0;
 
-                // Load each hike file with progressive rendering
-                const hikePromises = hikeFiles.map(async (file, index) => {
+                // For each filename in the CSV, fetch from the folder matching its type
+                const adventurePromises = metadataOrder.map(async (filename) => {
                     const t1 = performance.now();
-                    const color = colors[index % colors.length];
-                    const response = await fetch(file.download_url);
+                    const meta = metadataLookup.get(filename);
+                    const typeConfig = TYPE_CONFIG[meta.type];
+
+                    if (!typeConfig) {
+                        console.warn(`⚠️ Unknown type "${meta.type}" for "${filename}" - skipping`);
+                        return null;
+                    }
+
+                    const url = `${rawBase}/${typeConfig.folder}/${encodeURIComponent(filename)}`;
+                    const response = await fetch(url);
+
+                    if (!response.ok) {
+                        console.warn(`⚠️ Could not load "${filename}" from ${typeConfig.folder}/ folder`);
+                        return null;
+                    }
+
                     const jsonData = await response.json();
-                    const adventure = parseGPX(jsonData, file.name, color, 'hike');
-                    console.log(`Hike ${file.name}: ${Math.round(performance.now() - t1)}ms`);
+                    const color = typeConfig.activityType === 'dive' ? DIVE_COLOR : colors[colorIndex++ % colors.length];
+                    const adventure = parseGPX(jsonData, filename, color, typeConfig.activityType);
+                    console.log(`${typeConfig.activityType} ${filename}: ${Math.round(performance.now() - t1)}ms`);
 
                     // Render immediately as each adventure loads
-                    if (adventure && metadataLookup.has(adventure.filename)) {
+                    if (adventure) {
                         addAdventureToMap(adventure);
                     }
 
-                    return adventure;
+                    return { adventure, type: typeConfig.activityType };
                 });
 
-                // Load each paddle file with progressive rendering
-                const paddlePromises = paddleFiles.map(async (file, index) => {
-                    const t1 = performance.now();
-                    const color = colors[(index + hikeFiles.length) % colors.length];
-                    const response = await fetch(file.download_url);
-                    const jsonData = await response.json();
-                    const adventure = parseGPX(jsonData, file.name, color, 'paddle');
-                    console.log(`Paddle ${file.name}: ${Math.round(performance.now() - t1)}ms`);
+                const results = await Promise.all(adventurePromises);
 
-                    // Render immediately as each adventure loads
-                    if (adventure && metadataLookup.has(adventure.filename)) {
-                        addAdventureToMap(adventure);
-                    }
-
-                    return adventure;
-                });
-
-                // Load each dive file with progressive rendering
-                const divePromises = diveFiles.map(async (file) => {
-                    const t1 = performance.now();
-                    const response = await fetch(file.download_url);
-                    const jsonData = await response.json();
-                    const adventure = parseGPX(jsonData, file.name, DIVE_COLOR, 'dive');
-                    console.log(`Dive ${file.name}: ${Math.round(performance.now() - t1)}ms`);
-
-                    // Render immediately as each adventure loads
-                    if (adventure && metadataLookup.has(adventure.filename)) {
-                        addAdventureToMap(adventure);
-                    }
-
-                    return adventure;
-                });
-
-                allHikes = await Promise.all(hikePromises);
-                allPaddles = await Promise.all(paddlePromises);
-                allDives = await Promise.all(divePromises);
+                // Sort results into type arrays
+                allHikes = results.filter(r => r && r.type === 'hike').map(r => r.adventure).filter(a => a !== null);
+                allPaddles = results.filter(r => r && r.type === 'paddle').map(r => r.adventure).filter(a => a !== null);
+                allDives = results.filter(r => r && r.type === 'dive').map(r => r.adventure).filter(a => a !== null);
 
                 console.log(`Total load time: ${Math.round(performance.now() - t0)}ms`);
-
-                console.log('Raw hikes loaded:', allHikes.length, allHikes.map(h => h?.filename));
-                console.log('Raw paddles loaded:', allPaddles.length, allPaddles.map(p => p?.filename));
-                console.log('Raw dives loaded:', allDives.length, allDives.map(d => d?.filename));
-
-                // Filter out null adventures
-                allHikes = allHikes.filter(h => h !== null);
-                allPaddles = allPaddles.filter(p => p !== null);
-                allDives = allDives.filter(d => d !== null);
-
-                // Filter out adventures not in metadata file
-                allHikes = allHikes.filter(h => {
-                    if (!metadataLookup.has(h.filename)) {
-                        console.warn(`⚠️ File "${h.filename}" exists but has no entry in metadata CSV - skipping`);
-                        return false;
-                    }
-                    return true;
-                });
-
-                allPaddles = allPaddles.filter(p => {
-                    if (!metadataLookup.has(p.filename)) {
-                        console.warn(`⚠️ File "${p.filename}" exists but has no entry in metadata CSV - skipping`);
-                        return false;
-                    }
-                    return true;
-                });
-
-                allDives = allDives.filter(d => {
-                    if (!metadataLookup.has(d.filename)) {
-                        console.warn(`⚠️ File "${d.filename}" exists but has no entry in metadata CSV - skipping`);
-                        return false;
-                    }
-                    return true;
-                });
-
-                console.log('Filtered hikes:', allHikes.length, allHikes.map(h => h.filename));
-                console.log('Filtered paddles:', allPaddles.length, allPaddles.map(p => p.filename));
-                console.log('Filtered dives:', allDives.length, allDives.map(d => d.filename));
-
-                // Check for metadata entries without corresponding files
-                const allLoadedFilenames = new Set([
-                    ...allHikes.map(h => h.filename),
-                    ...allPaddles.map(p => p.filename),
-                    ...allDives.map(d => d.filename)
-                ]);
-
-                metadataOrder.forEach(filename => {
-                    if (!allLoadedFilenames.has(filename)) {
-                        console.warn(`⚠️ Metadata entry "${filename}" has no corresponding .json file in hikes/paddles/dives folders`);
-                    }
-                });
+                console.log('Hikes loaded:', allHikes.length, allHikes.map(h => h.filename));
+                console.log('Paddles loaded:', allPaddles.length, allPaddles.map(p => p.filename));
+                console.log('Dives loaded:', allDives.length, allDives.map(d => d.filename));
 
                 // Adventures already added to map progressively, now just finalize
 
@@ -1580,12 +1531,11 @@
                 });
 
                 if (bounds.length > 0) {
-                    // On desktop, fit to bounds to show all adventures
-                    // On mobile, keep the initial US view
-                    if (window.innerWidth > 768) {
+                    // Fit to world bounds only if QuickView is 'world' or empty
+                    if (initialQV === 'world' || !initialQV) {
                         map.fitBounds(bounds, {
                             padding: [50, 50],
-                            maxZoom: 5  // Don't zoom out further than this
+                            maxZoom: 5
                         });
                     }
                 }
@@ -1593,11 +1543,9 @@
                 updateStats();
                 displayAdventureList();
 
-                // On mobile, apply filters after all adventures are loaded
-                // to hide dives (matching the default US QuickView)
-                if (isMobile) {
-                    applyFilters();
-                }
+                // Apply filters after all adventures are loaded
+                // so saved/default filter state is respected
+                applyFilters();
 
                 document.getElementById('loading').style.display = 'none';
 
