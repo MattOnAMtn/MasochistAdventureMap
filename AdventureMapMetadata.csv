@@ -1,47 +1,51 @@
-StartDate,EndDate,Filename,Mileage,Gain,Count,Link
-2026-08-19,2026-11-30,2026 - American Discovery Trail Moab to San Francisco.json,1480,80000,,https://www.youtube.com/playlist?list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
-2026-06-06,2026-08-12,2026 - Yukon River Source to Sea.json,2950,0,,https://www.youtube.com/playlist?list=PLgw5mInRAREaPmmb-5nBaeAv9YG6Ozat8
-2026-03-15,2026-05-21,2026 - Cape to Cape Track Australia.json,77,9000,,https://www.youtube.com/playlist?list=PLgw5mInRAREbR03sbQcNmPVXBfMaLv5Hz
-2026-03-15,2026-05-21,2026 - Bibbulmun Track.json,623,65600,,https://www.youtube.com/playlist?list=PLgw5mInRAREYmnmq0Wgr_OxnBe4TFYe6i
-2025-12-20,2026-01-03,2025 - Palau | Ocean Hunter 3 Liveaboard.json,0,0,45,https://www.youtube.com/playlist?list=PLgw5mInRAREYkCOBzm_7s5x8T0WEzRBI6
-2025-11-16,2025-11-30,2025 - Bonaire | Buddy Dive Resort.json,0,0,22,https://www.youtube.com/playlist?list=PLgw5mInRAREbziD5n0jBBsoabSAjJqY_x
-2025-11-06,2025-11-15,2025 - Bartram Trail+.json,118.2,26000,,https://www.youtube.com/watch?v=hisCiu9IQwk&list=PLgw5mInRAREY6P1xRzuEwjxT8lMFk6Tj5
-2025-10-30,2025-11-06,2025 - Foothills Trail.json,76,13800,,https://www.youtube.com/watch?v=OTzaFL09r88&list=PLgw5mInRAREYo0DLaywF7Qdw9WgoUf9eI
-2025-10-09,2025-10-27,2025 - Benton MacKaye Trail.json,291.4,60000,,https://www.youtube.com/watch?v=N_iHarDgwQg&list=PLgw5mInRAREYhyhN0bGB6y6LsMSAzcU1h
-2025-09-11,2025-10-05,2025 - Vermont Long Trail+.json,304.6,72000,,https://www.youtube.com/watch?v=v3G-WdyVieQ&list=PLgw5mInRAREbYTDyWjTSNfKNpwH925_yH
-2024-12-20,2025-01-05,2024 - Raja Ampat | Ilike Liveaboard.json,0,0,31,https://www.youtube.com/watch?v=KLMxCJ7FCpI&list=PLgw5mInRAREa3PU0DS-fjhZKpbvWoBgpk
-2024-11-23,2024-12-01,2024 - Bonaire | Buddy Dive Resort.json,0,0,,https://www.youtube.com/watch?v=gmxf8m_SGEw&list=PLgw5mInRAREaD3rixSUAL6lbGPnONTh-q
-2024-03-27,2024-10-25,2024 - American Discovery Trail Delaware to Moab.json,3517,125000,,https://www.youtube.com/playlist?list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
-2023-12-28,2024-01-06,2023 - Socorro Mexico | Quino Liveaboard.json,0,0,???,https://www.youtube.com/playlist?list=PLgw5mInRAREYug0sBxNa85ZNVk6EeJztd
-2023-06-02,2023-08-20,2023 - Mississippi Source to Sea Paddle.json,2400,0,,https://www.youtube.com/watch?v=YCL3TTaNHuc&list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM
-2023-04-01,2023-05-28,2023 - Grand Enchantment Trail.json,770,82500,,https://www.youtube.com/watch?v=VQXsvGa-b5s&list=PLgw5mInRAREbpOGkbtRN66sYyZTU3Vb6P
-2023-03-18,2023-03-31,2023 - Arizona Trail Abort.json,200,34000,,https://www.youtube.com/watch?v=NlUuMkX68Q4&list=PLgw5mInRAREZzByMi-sKxff7kS25muoCQ
-2022-12-18,2022-01-01,2022 - Suwannee River.json,200,0,,https://www.youtube.com/watch?v=hutWs64X4W0&list=PLgw5mInRAREZPGVxm059rxEnA3AgbhhtE
-2022-06-28,2023-12-11,2022-3 - Continental Divide Trail.json,3062,467000,,https://www.youtube.com/watch?v=0S2ldIqB7vU&list=PLgw5mInRAREad4yba5tNpXiuPYUKgWfQF
-2022-06-07,2022-06-19,2022 - Komodo | Mermaid 2 Liveaboard.json,0,0,,https://www.youtube.com/playlist?list=PLgw5mInRAREYUrPAzD67jDIt-AKbzjYcy
-2022-04-14,2022-05-15,2022 - Condor Trail.json,409,69000,,https://www.youtube.com/watch?v=mkknqKCD9ao&list=PLgw5mInRAREZsmF_PDRta8OXMDX5zNoor
-2022-04-01,2022-04-10,2022 - Green River Utah Paddle.json,116,0,,https://www.youtube.com/watch?v=43WfLWrntYs&list=PLgw5mInRAREZ6i-2Hrk-m6HLsQwon24YC
-2022-03-27,2022-03-31,2022 - Santa Monica Backbone Trail.json,73,11600,,https://www.youtube.com/watch?v=L64Xusg2ho0&list=PLgw5mInRAREZt0lnSGIuHM_mOKedsG_lF
-2022-03-10,2022-03-20,2022 - San Diego Trans County Trail.json,115,20000,,https://www.youtube.com/watch?v=wxmrjn9EvQU&list=PLgw5mInRAREbMUidI4hCFSKpeIi2iy9Jn
-2022-02-16,2022-02-19,2022 - San Mateo Canyon Wilderness Loop.json,70.6,12850,,https://www.youtube.com/playlist?list=PLgw5mInRAREbTFG9vJWWoVeHimJU4Vofc
-2021-12-22,2021-12-29,2021 - Lone Star Trail.json,128,4531,,https://www.youtube.com/watch?v=u6C5MiMbEek&list=PLgw5mInRAREbvSeJbsUPcQ54foWrfXRaG
-2020-12-29,2021-10-26,2021 - Eastern Continental Trail (FT+PT+AT+IAT).json,5000,601000,,https://www.youtube.com/watch?v=AV--cTMBeBs&list=PLgw5mInRAREYk-R_M818n0sOWRS1CjZI0
-2020-05-04,2020-09-29,2020 - Pacific Crest Trail.json,2653,489000,,https://www.firstchurchofthemasochist.com/p/pacific-crest-trail-2020.html
-2020-03-04,2020-03-08,2020 - Santa Monica Backbone Trail.json,67,14000,,https://www.firstchurchofthemasochist.com/2020/03/thru-hiking-santa-monica-mountains.html
-2020-02-05,2020-02-09,2020 - Hot Springs Trail Section 1.json,57,10300,,https://www.firstchurchofthemasochist.com/2020/02/section-hiking-hot-spring-trail-santa.html
-2020-01-12,2020-01-16,2020 - Desert Trail Border to 78.json,54.9,3254,,https://www.firstchurchofthemasochist.com/2020/01/section-hiking-desert-trail-mexican.html
-2019-12-26,2019-12-26,2019 - San Marcos River Texas Diving.json,,,3,https://www.firstchurchofthemasochist.com/2019/12/diving-san-marcos-river-and-comal-river.html
-2019-10-28,2019-12-23,2019 - Thailand Similan Islands DMT | Similan Quest Liveaboard.json,0,0,90,https://www.firstchurchofthemasochist.com/search/label/divemaster%20trainee
-2019-08-26,2019-09-19,2019 - Theodore Solomons Trail.json,288,61000,,https://www.firstchurchofthemasochist.com/2019/09/matts-guide-to-theodore-solomons-trail.html
-2019-08-04,2019-08-15,2019 - John Muir Trail.json,220,50000,,https://www.firstchurchofthemasochist.com/2019/08/john-muir-trail-plus-half-dome-whitney.html
-2019-07-10,2019-07-10,2019 - Homestead Crater Diving.json,,,,https://www.firstchurchofthemasochist.com/2019/07/warm-water-scuba-diving-at-homestead.html
-2019-07-23,2019-07-23,2019 - Vancouver Island Diving.json,,,,https://www.firstchurchofthemasochist.com/2019/07/diving-vancouver-island-hmcs.html
-2019-07-20,2019-07-22,2019 - Sayward Forest Canoe Route.json,32.2,0,,https://www.firstchurchofthemasochist.com/2019/07/sayward-forest-canoe-route-vancouver.html
-2019-06-26,2019-07-13,2019 - Komodo | Mermaid 2 Liveaboard.json,0,0,20,
-2019-03-30,2019-04-04,2019 - Buckskin Gulch To Paria Canyon To Lee's Ferry.json,66.7,,,https://www.firstchurchofthemasochist.com/2019/03/slotting-it-up-backpacking-buckskin.html
-2019-01-12,2019-01-13,2019 - Nevada Diving.json,,,2,https://www.firstchurchofthemasochist.com/search/label/Nevada%20%2719%20Diving
-2018-12-15,2010-01-08,2018 - SoCal Diving.json,,,,https://www.firstchurchofthemasochist.com/search/label/SoCal%20Diving
-2018-12-26,2019-01-02,2018 - Florida Dive Trip.json,,,15,https://www.firstchurchofthemasochist.com/search/label/New%20Years%202019%20Trip
-2018-06-30,2018-07-04,2018 - San Juan Islands Paddle.json,63.8,0,,https://www.firstchurchofthemasochist.com/2018/06/san-juan-islands-washington-5-day.html
-2018-03-30,2018-04-03,2018 - Trans Catalina Trail+.json,61,14000,,https://www.firstchurchofthemasochist.com/2018/03/backpacking-trans-catalina-trail-in.html
-2013-09-14,2013-09-22,2013 - John Muir Trail Abort.json,181.4,0,,https://www.firstchurchofthemasochist.com/2013/09/john-muir-trail-happy-isles-to.html
+StartDate,EndDate,Type,Filename,Mileage,Gain,Count,Link
+2026-08-19,2026-11-30,hike,2026 - American Discovery Trail Moab to San Francisco.json,1480,80000,,https://www.youtube.com/playlist?list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
+2026-06-06,2026-08-12,paddle,2026 - Yukon River Source to Sea.json,2950,0,,https://www.youtube.com/playlist?list=PLgw5mInRAREaPmmb-5nBaeAv9YG6Ozat8
+2026-03-15,2026-05-21,hike,2026 - Cape to Cape Track Australia.json,77,9000,,https://www.youtube.com/playlist?list=PLgw5mInRAREbR03sbQcNmPVXBfMaLv5Hz
+2026-03-15,2026-05-21,hike,2026 - Bibbulmun Track.json,623,65600,,https://www.youtube.com/playlist?list=PLgw5mInRAREYmnmq0Wgr_OxnBe4TFYe6i
+2025-12-20,2026-01-03,dive,2025 - Palau | Ocean Hunter 3 Liveaboard.json,0,0,45,https://www.youtube.com/playlist?list=PLgw5mInRAREYkCOBzm_7s5x8T0WEzRBI6
+2025-11-16,2025-11-30,dive,2025 - Bonaire | Buddy Dive Resort.json,0,0,22,https://www.youtube.com/playlist?list=PLgw5mInRAREbziD5n0jBBsoabSAjJqY_x
+2025-11-06,2025-11-15,hike,2025 - Bartram Trail+.json,118.2,26000,,https://www.youtube.com/watch?v=hisCiu9IQwk&list=PLgw5mInRAREY6P1xRzuEwjxT8lMFk6Tj5
+2025-10-30,2025-11-06,hike,2025 - Foothills Trail.json,76,13800,,https://www.youtube.com/watch?v=OTzaFL09r88&list=PLgw5mInRAREYo0DLaywF7Qdw9WgoUf9eI
+2025-10-09,2025-10-27,hike,2025 - Benton MacKaye Trail.json,291.4,60000,,https://www.youtube.com/watch?v=N_iHarDgwQg&list=PLgw5mInRAREYhyhN0bGB6y6LsMSAzcU1h
+2025-09-11,2025-10-05,hike,2025 - Vermont Long Trail+.json,304.6,72000,,https://www.youtube.com/watch?v=v3G-WdyVieQ&list=PLgw5mInRAREbYTDyWjTSNfKNpwH925_yH
+2025-08-04,2025-08-11,hike,2025 - Kibbie Cherry Lake Loop '25.json,94.7,15900,,https://www.youtube.com/playlist?list=PLgw5mInRAREaFn2LTnTXMQvO1hG9AeDdt
+2025-08-14,2025-08-19,hike,2025 - Robinson Lake Loop '25.json,78.6,16600,,https://www.youtube.com/playlist?list=PLgw5mInRAREbwOuwuiFUG2UsaPySbem--
+2024-12-20,2025-01-05,dive,2024 - Raja Ampat | Ilike Liveaboard.json,0,0,31,https://www.youtube.com/watch?v=KLMxCJ7FCpI&list=PLgw5mInRAREa3PU0DS-fjhZKpbvWoBgpk
+2024-11-23,2024-12-01,dive,2024 - Bonaire | Buddy Dive Resort.json,0,0,,https://www.youtube.com/watch?v=gmxf8m_SGEw&list=PLgw5mInRAREaD3rixSUAL6lbGPnONTh-q
+2024-03-27,2024-10-25,hike,2024 - American Discovery Trail Delaware to Moab.json,3517,125000,,https://www.youtube.com/playlist?list=PLgw5mInRAREYcdWnhWuxTsiksf4Jipjqa
+2023-12-28,2024-01-06,dive,2023 - Socorro Mexico | Quino Liveaboard.json,0,0,???,https://www.youtube.com/playlist?list=PLgw5mInRAREYug0sBxNa85ZNVk6EeJztd
+2023-06-02,2023-08-20,paddle,2023 - Mississippi Source to Sea Paddle.json,2400,0,,https://www.youtube.com/watch?v=YCL3TTaNHuc&list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM
+2023-04-01,2023-05-28,hike,2023 - Grand Enchantment Trail.json,770,82500,,https://www.youtube.com/watch?v=VQXsvGa-b5s&list=PLgw5mInRAREbpOGkbtRN66sYyZTU3Vb6P
+2023-03-18,2023-03-31,hike,2023 - Arizona Trail Abort.json,200,34000,,https://www.youtube.com/watch?v=NlUuMkX68Q4&list=PLgw5mInRAREZzByMi-sKxff7kS25muoCQ
+2022-12-18,2022-01-01,paddle,2022 - Suwannee River.json,200,0,,https://www.youtube.com/watch?v=hutWs64X4W0&list=PLgw5mInRAREZPGVxm059rxEnA3AgbhhtE
+2022-06-28,2023-12-11,hike,2022-3 - Continental Divide Trail.json,3062,467000,,https://www.youtube.com/watch?v=0S2ldIqB7vU&list=PLgw5mInRAREad4yba5tNpXiuPYUKgWfQF
+2022-06-07,2022-06-19,dive,2022 - Komodo | Mermaid 2 Liveaboard.json,0,0,,https://www.youtube.com/playlist?list=PLgw5mInRAREYUrPAzD67jDIt-AKbzjYcy
+2022-05-28,2022-06-03,hike,2022 - Trans Sierra Backpack Cottonwood Pass to South Fork.json,92,17300,,https://www.youtube.com/playlist?list=PLgw5mInRAREZFnPC0XC9E262-YWXDrs1x
+2022-04-14,2022-05-15,hike,2022 - Condor Trail.json,409,69000,,https://www.youtube.com/watch?v=mkknqKCD9ao&list=PLgw5mInRAREZsmF_PDRta8OXMDX5zNoor
+2022-04-01,2022-04-10,paddle,2022 - Green River Utah Paddle.json,116,0,,https://www.youtube.com/watch?v=43WfLWrntYs&list=PLgw5mInRAREZ6i-2Hrk-m6HLsQwon24YC
+2022-03-27,2022-03-31,hike,2022 - Santa Monica Backbone Trail.json,73,11600,,https://www.youtube.com/watch?v=L64Xusg2ho0&list=PLgw5mInRAREZt0lnSGIuHM_mOKedsG_lF
+2022-03-10,2022-03-20,hike,2022 - San Diego Trans County Trail.json,115,20000,,https://www.youtube.com/watch?v=wxmrjn9EvQU&list=PLgw5mInRAREbMUidI4hCFSKpeIi2iy9Jn
+2022-02-16,2022-02-19,hike,2022 - San Mateo Canyon Wilderness Loop.json,70.6,12850,,https://www.youtube.com/playlist?list=PLgw5mInRAREbTFG9vJWWoVeHimJU4Vofc
+2021-12-22,2021-12-29,hike,2021 - Lone Star Trail.json,128,4531,,https://www.youtube.com/watch?v=u6C5MiMbEek&list=PLgw5mInRAREbvSeJbsUPcQ54foWrfXRaG
+2020-12-29,2021-10-26,hike,2021 - Eastern Continental Trail (FT+PT+AT+IAT).json,5000,601000,,https://www.youtube.com/watch?v=AV--cTMBeBs&list=PLgw5mInRAREYk-R_M818n0sOWRS1CjZI0
+2020-05-04,2020-09-29,hike,2020 - Pacific Crest Trail.json,2653,489000,,https://www.firstchurchofthemasochist.com/p/pacific-crest-trail-2020.html
+2020-03-04,2020-03-08,hike,2020 - Santa Monica Backbone Trail.json,67,14000,,https://www.firstchurchofthemasochist.com/2020/03/thru-hiking-santa-monica-mountains.html
+2020-02-05,2020-02-09,hike,2020 - Hot Springs Trail Section 1.json,57,10300,,https://www.firstchurchofthemasochist.com/2020/02/section-hiking-hot-spring-trail-santa.html
+2020-01-12,2020-01-16,hike,2020 - Desert Trail Border to 78.json,54.9,3254,,https://www.firstchurchofthemasochist.com/2020/01/section-hiking-desert-trail-mexican.html
+2019-12-26,2019-12-26,dive,2019 - San Marcos River Texas Diving.json,,,3,https://www.firstchurchofthemasochist.com/2019/12/diving-san-marcos-river-and-comal-river.html
+2019-10-28,2019-12-23,dive,2019 - Thailand Similan Islands DMT | Similan Quest Liveaboard.json,0,0,90,https://www.firstchurchofthemasochist.com/search/label/divemaster%20trainee
+2019-08-26,2019-09-19,hike,2019 - Theodore Solomons Trail.json,288,61000,,https://www.firstchurchofthemasochist.com/2019/09/matts-guide-to-theodore-solomons-trail.html
+2019-08-04,2019-08-15,hike,2019 - John Muir Trail.json,220,50000,,https://www.firstchurchofthemasochist.com/2019/08/john-muir-trail-plus-half-dome-whitney.html
+2019-07-10,2019-07-10,dive,2019 - Homestead Crater Diving.json,,,1,https://www.firstchurchofthemasochist.com/2019/07/warm-water-scuba-diving-at-homestead.html
+2019-07-23,2019-07-23,dive,2019 - Vancouver Island Diving.json,,,2,https://www.firstchurchofthemasochist.com/2019/07/diving-vancouver-island-hmcs.html
+2019-07-20,2019-07-22,paddle,2019 - Sayward Forest Canoe Route.json,32.2,0,,https://www.firstchurchofthemasochist.com/2019/07/sayward-forest-canoe-route-vancouver.html
+2019-06-26,2019-07-13,dive,2019 - Komodo | Mermaid 2 Liveaboard.json,0,0,20,
+2019-03-30,2019-04-04,hike,2019 - Buckskin Gulch To Paria Canyon To Lee's Ferry.json,66.7,,,https://www.firstchurchofthemasochist.com/2019/03/slotting-it-up-backpacking-buckskin.html
+2019-01-12,2019-01-13,dive,2019 - Nevada Diving.json,,,2,https://www.firstchurchofthemasochist.com/search/label/Nevada%20%2719%20Diving
+2018-12-15,2010-01-08,hike,2018 - SoCal Diving.json,,,,https://www.firstchurchofthemasochist.com/search/label/SoCal%20Diving
+2018-12-26,2019-01-02,hike,2018 - Florida Dive Trip.json,,,15,https://www.firstchurchofthemasochist.com/search/label/New%20Years%202019%20Trip
+2018-06-30,2018-07-04,paddle,2018 - San Juan Islands Paddle.json,63.8,0,,https://www.firstchurchofthemasochist.com/2018/06/san-juan-islands-washington-5-day.html
+2018-03-30,2018-04-03,hike,2018 - Trans Catalina Trail+.json,61,14000,,https://www.firstchurchofthemasochist.com/2018/03/backpacking-trans-catalina-trail-in.html
+2016-05-28,2016-05-30,hike,2016 - Memorial Day Massacre: Durrwood Rincon Edition.json,32,7550,,https://www.firstchurchofthemasochist.com/2016/05/memorial-day-massacre-2016-durrwood.html
+2013-09-14,2013-09-22,hike,2013 - John Muir Trail Abort.json,181.4,0,,https://www.firstchurchofthemasochist.com/2013/09/john-muir-trail-happy-isles-to.html
