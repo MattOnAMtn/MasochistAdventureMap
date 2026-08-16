@@ -76,11 +76,14 @@
 <script>
 (function(){
   'use strict';
+  var roots=document.querySelectorAll('#legacy-archive'),root=roots[roots.length-1];
+  if(!root||root.getAttribute('data-la-initialized'))return;
+  root.setAttribute('data-la-initialized','true');
   var DATA_URL='https://raw.githubusercontent.com/MattOnAMtn/MasochistAdventureMap/agent/adventure-map-fullscreen-layers/data/legacy-archive.json';
   var archive=null,filtered=[],map=null,markers=null;
-  var search=document.getElementById('la-search'),type=document.getElementById('la-type');
-  var results=document.getElementById('la-results'),list=document.getElementById('la-list-view');
-  var mapView=document.getElementById('la-map-view'),mapButton=document.getElementById('la-map-button'),listButton=document.getElementById('la-list-button');
+  var search=root.querySelector('#la-search'),type=root.querySelector('#la-type');
+  var results=root.querySelector('#la-results'),list=root.querySelector('#la-list-view');
+  var mapView=root.querySelector('#la-map-view'),mapButton=root.querySelector('#la-map-button'),listButton=root.querySelector('#la-list-button');
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' - '+t.endDateDisplay:t.startDateDisplay}
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
@@ -90,7 +93,7 @@
   function row(t){return'<article class="la-list-row"><div class="la-date">'+esc(dateText(t))+'</div><div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div></div><div class="la-list-links">'+links(t)+'</div></article>'}
   function popup(t){return'<div class="la-popup-title">'+esc(t.title)+'</div><div>'+esc(dateText(t))+'</div><div class="la-links">'+links(t)+'</div>'}
   function initializeMap(){
-    map=L.map('legacy-map',{worldCopyJump:true}).setView([38,-112],4);
+    map=L.map(root.querySelector('#legacy-map'),{worldCopyJump:true}).setView([38,-112],4);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
     markers=L.layerGroup().addTo(map);
   }
@@ -109,7 +112,7 @@
     });
     results.innerHTML=filtered.slice(0,250).map(card).join('')||'<div class="la-card">No matching trips.</div>';
     list.innerHTML=filtered.map(row).join('')||'<div class="la-card">No matching trips.</div>';
-    document.getElementById('la-footer').textContent=filtered.length+' trips shown · '+filtered.filter(function(t){return t.location}).length+' mapped';
+    root.querySelector('#la-footer').textContent=filtered.length+' trips shown · '+filtered.filter(function(t){return t.location}).length+' mapped';
     updateMarkers();
   }
   function setView(showMap){
@@ -117,13 +120,13 @@
   }
   fetch(DATA_URL).then(function(response){if(!response.ok)throw new Error('Archive data returned HTTP '+response.status);return response.json()}).then(function(data){
     archive=data;filtered=data.trips;
-    document.getElementById('la-articles').textContent=data.summary.articles;
-    document.getElementById('la-peaks').textContent=data.summary.uniquePeaks;
+    root.querySelector('#la-articles').textContent=data.summary.articles;
+    root.querySelector('#la-peaks').textContent=data.summary.uniquePeaks;
     Array.from(new Set(data.trips.reduce(function(all,t){return all.concat(t.types||[])},[]))).sort().forEach(function(value){var option=document.createElement('option');option.value=value;option.textContent=value;type.appendChild(option)});
-    initializeMap();applyFilters();document.getElementById('la-loading').style.display='none';
-  }).catch(function(error){var box=document.getElementById('la-error');document.getElementById('la-loading').style.display='none';box.textContent='The archive could not be loaded. '+error.message;box.style.display='flex'});
+    initializeMap();applyFilters();root.querySelector('#la-loading').style.display='none';
+  }).catch(function(error){var box=root.querySelector('#la-error');root.querySelector('#la-loading').style.display='none';box.textContent='The archive could not be loaded. '+error.message;box.style.display='flex'});
   search.addEventListener('input',function(){applyFilters();if(window.matchMedia('(max-width:760px)').matches&&search.value.trim()){setView(false);list.scrollTop=0}});
-  search.addEventListener('focus',function(){if(window.matchMedia('(max-width:760px)').matches){setTimeout(function(){document.querySelector('#legacy-archive .la-controls').scrollIntoView({block:'start',behavior:'smooth'})},150)}});
+  search.addEventListener('focus',function(){if(window.matchMedia('(max-width:760px)').matches){setTimeout(function(){root.querySelector('.la-controls').scrollIntoView({block:'start',behavior:'smooth'})},150)}});
   search.addEventListener('keydown',function(event){if(event.key==='Enter')search.blur()});
   type.addEventListener('change',applyFilters);mapButton.addEventListener('click',function(){setView(true)});listButton.addEventListener('click',function(){setView(false)});
 })();
