@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR4VTs94z-gknDfCKTYgZk7Xdc6EruKB_ajYxHoJHIUfKybTLf4slcPz7HI2CbCtg1qPS9aPTppr8uE/pub';
 const SOURCES = {
@@ -10,6 +10,7 @@ const SOURCES = {
 const clean = value => String(value ?? '').trim();
 const splitList = value => clean(value).split(/\s*(?:\||,)\s*/).filter(Boolean);
 const unique = values => [...new Set(values.filter(Boolean))];
+const REPORT_BASE = 'https://raw.githubusercontent.com/MattOnAMtn/MasochistAdventureMap/agent/adventure-map-fullscreen-layers/';
 
 function parseCsv(text) {
   const rows = [];
@@ -118,6 +119,32 @@ function recoveredMedia(group) {
   };
 }
 
+function driveFileId(url) {
+  const value = clean(url);
+  if (value.includes('/d/')) return value.split('/d/')[1]?.split('/')[0] || null;
+  if (value.includes('id=')) return value.split('id=')[1]?.split('&')[0] || null;
+  return null;
+}
+
+function reportDates(title) {
+  const bracket = clean(title).match(/^\[([^\]]+)\]/)?.[1] || '';
+  const parts = bracket.split(/\s+to\s+/i);
+  const expand = (value, end = false) => {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{4}-\d{2}$/.test(value)) {
+      if (!end) return `${value}-01`;
+      const [year, month] = value.split('-').map(Number);
+      return new Date(Date.UTC(year, month, 0)).toISOString().slice(0, 10);
+    }
+    return null;
+  };
+  return { start: expand(parts[0]), end: expand(parts[1] || parts[0], true) };
+}
+
+function reportTitle(title) {
+  return clean(title).replace(/^\[[^\]]+\]\s*[-–—]\s*/, '').replace(/\.pdf$/i, '');
+}
+
 function locationFor(trip, peaks) {
   const lat = number(trip['Trip Lat']), lng = number(trip['Trip Lng']);
   if (lat !== null && lng !== null) return { lat, lng, source: clean(trip['Lat Source']) || 'trip' };
@@ -134,6 +161,9 @@ const [tripCsv, peakCsv, originalCsv] = await Promise.all(Object.values(SOURCES)
 const tripRows = records(tripCsv);
 const peakRows = records(peakCsv);
 const originalGroups = groupOriginalTrips(records(originalCsv));
+const legacyReports = JSON.parse(await readFile('data/legacy-reports-manifest.json', 'utf8'));
+const reportsByDriveId = new Map(legacyReports.map(report => [report.driveId, report]));
+const linkedReportIds = new Set();
 const warnings = [];
 
 const originalsByKey = new Map();
@@ -179,6 +209,9 @@ const trips = tripRows.map(row => {
   const matches = originalsByKey.get(tripKey(row['Date Start'], title)) ?? [];
   if (matches.length > 1) warnings.push(`${id || title}: multiple original trip groups matched`);
   const recovered = recoveredMedia(matches[0]);
+  const sourceReportUrl = clean(row['TR URL']) || recovered.report;
+  const archivedReport = reportsByDriveId.get(driveFileId(sourceReportUrl));
+  if (archivedReport) linkedReportIds.add(archivedReport.driveId);
   return {
     id,
     title,
@@ -188,7 +221,7 @@ const trips = tripRows.map(row => {
     startDateDisplay: clean(row['Date Start']) || null,
     endDateDisplay: clean(row['Date End']) || null,
     types: splitList(row['Trip Types']),
-    reportUrl: clean(row['TR URL']) || recovered.report,
+    reportUrl: archivedReport ? `${REPORT_BASE}${archivedReport.path}` : sourceReportUrl || null,
     photosUrl: clean(row['Pics URL']) || recovered.photos,
     videos: recovered.videos,
     maps: classifyMaps(row, recovered.maps),
@@ -197,6 +230,29 @@ const trips = tripRows.map(row => {
     notes: clean(row.Notes) || null,
   };
 });
+
+for (const report of legacyReports) {
+  if (linkedReportIds.has(report.driveId)) continue;
+  const dates = reportDates(report.title);
+  const title = reportTitle(report.title);
+  trips.push({
+    id: `legacy-report-${report.path.split('/').pop().replace(/\.pdf$/i, '')}`,
+    title,
+    alternateNames: [],
+    startDate: dates.start,
+    endDate: dates.end,
+    startDateDisplay: dates.start,
+    endDateDisplay: dates.end === dates.start ? null : dates.end,
+    types: ['Legacy Report'],
+    reportUrl: `${REPORT_BASE}${report.path}`,
+    photosUrl: null,
+    videos: [],
+    maps: { caltopo: null, staticImage: null, other: [] },
+    location: null,
+    peaks: [],
+    notes: 'Preserved legacy PDF report',
+  });
+}
 
 for (const [tripId, orphanPeaks] of peaksByTrip) warnings.push(`${orphanPeaks.length} peak(s) reference missing trip ${tripId}`);
 
@@ -213,6 +269,7 @@ const archive = {
     mappedTrips: trips.filter(trip => trip.location).length,
     caltopoMaps: trips.filter(trip => trip.maps.caltopo).length,
     staticMapImages: trips.filter(trip => trip.maps.staticImage).length,
+    legacyPdfReports: legacyReports.length,
   },
   trips,
 };
