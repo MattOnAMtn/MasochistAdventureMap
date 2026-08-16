@@ -4,6 +4,7 @@ const SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR4VTs94z-gknDfCK
 const SOURCES = {
   trips: `${SHEET}?output=csv&gid=244642622`,
   peaks: `${SHEET}?output=csv&gid=470214005`,
+  original: `${SHEET}?output=csv&gid=1376667324`,
 };
 
 const clean = value => String(value ?? '').trim();
@@ -61,10 +62,11 @@ function isoDate(value, warnings, context) {
   return `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 }
 
-function classifyMaps(row) {
+function classifyMaps(row, recoveredUrls = []) {
   const urls = unique([
     ...splitList(row['Map URL']),
     ...clean(row['All Map URLs']).split(/\s*\|\s*/).filter(Boolean),
+    ...recoveredUrls,
   ]).filter(url => /^https?:\/\//i.test(url));
   const host = url => {
     try { return new URL(url).hostname.toLowerCase().replace(/^www\./, ''); }
@@ -74,6 +76,45 @@ function classifyMaps(row) {
     caltopo: urls.find(url => host(url) === 'caltopo.com') ?? null,
     staticImage: urls.find(url => host(url) === 'flickr.com') ?? null,
     other: urls.filter(url => !['caltopo.com', 'flickr.com'].includes(host(url))),
+  };
+}
+
+const normalizedTitle = value => clean(value).toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim();
+const tripKey = (date, title) => `${clean(date)}|${normalizedTitle(title)}`;
+
+function urlsIn(row) {
+  return unique(Object.values(row).flatMap(value => clean(value).match(/https?:\/\/[^\s|,]+/gi) ?? []));
+}
+
+function groupOriginalTrips(rows) {
+  const groups = [];
+  let current = null;
+  for (const row of rows) {
+    if (clean(row['Date Start'])) {
+      current = { start: row, rows: [row] };
+      groups.push(current);
+    } else if (current) current.rows.push(row);
+  }
+  return groups;
+}
+
+function recoveredMedia(group) {
+  if (!group) return { maps: [], photos: null, report: null, videos: [] };
+  const allUrls = unique(group.rows.flatMap(urlsIn));
+  const hosts = url => {
+    try { return new URL(url).hostname.toLowerCase().replace(/^www\./, ''); }
+    catch { return ''; }
+  };
+  const explicitMaps = unique(group.rows.flatMap(row => splitList(row.Map)));
+  const maps = unique([
+    ...explicitMaps,
+    ...allUrls.filter(url => ['caltopo.com', 'flickr.com'].includes(hosts(url)) && group.rows.some(row => clean(row.Map).includes(url))),
+  ]);
+  return {
+    maps,
+    photos: group.rows.map(row => clean(row.Pics)).find(Boolean) ?? null,
+    report: group.rows.map(row => clean(row.TR)).find(Boolean) ?? null,
+    videos: allUrls.filter(url => ['youtube.com', 'youtu.be'].includes(hosts(url))),
   };
 }
 
@@ -89,10 +130,18 @@ function locationFor(trip, peaks) {
   };
 }
 
-const [tripCsv, peakCsv] = await Promise.all(Object.values(SOURCES).map(fetchCsv));
+const [tripCsv, peakCsv, originalCsv] = await Promise.all(Object.values(SOURCES).map(fetchCsv));
 const tripRows = records(tripCsv);
 const peakRows = records(peakCsv);
+const originalGroups = groupOriginalTrips(records(originalCsv));
 const warnings = [];
+
+const originalsByKey = new Map();
+for (const group of originalGroups) {
+  const key = tripKey(group.start['Date Start'], group.start['Trip Name']);
+  if (!originalsByKey.has(key)) originalsByKey.set(key, []);
+  originalsByKey.get(key).push(group);
+}
 
 for (const required of ['Trip ID', 'Trip Name', 'Date Start', 'Trip Types']) {
   if (!(required in (tripRows[0] ?? {}))) throw new Error(`Trips_NEW is missing required column: ${required}`);
@@ -127,6 +176,9 @@ const trips = tripRows.map(row => {
   seen.add(id);
   const peaks = peaksByTrip.get(id) ?? [];
   peaksByTrip.delete(id);
+  const matches = originalsByKey.get(tripKey(row['Date Start'], title)) ?? [];
+  if (matches.length > 1) warnings.push(`${id || title}: multiple original trip groups matched`);
+  const recovered = recoveredMedia(matches[0]);
   return {
     id,
     title,
@@ -136,9 +188,10 @@ const trips = tripRows.map(row => {
     startDateDisplay: clean(row['Date Start']) || null,
     endDateDisplay: clean(row['Date End']) || null,
     types: splitList(row['Trip Types']),
-    reportUrl: clean(row['TR URL']) || null,
-    photosUrl: clean(row['Pics URL']) || null,
-    maps: classifyMaps(row),
+    reportUrl: clean(row['TR URL']) || recovered.report,
+    photosUrl: clean(row['Pics URL']) || recovered.photos,
+    videos: recovered.videos,
+    maps: classifyMaps(row, recovered.maps),
     location: locationFor(row, peaks),
     peaks,
     notes: clean(row.Notes) || null,
@@ -151,7 +204,7 @@ trips.sort((a, b) => (b.startDate ?? '').localeCompare(a.startDate ?? '') || a.t
 const reportUrls = new Set(trips.map(trip => trip.reportUrl).filter(Boolean));
 const archive = {
   schemaVersion: 1,
-  source: { workbook: 'FCoTM JSON', tripsTab: 'Trips_NEW', peaksTab: 'Peaks_NEW' },
+  source: { workbook: 'FCoTM JSON', tripsTab: 'Trips_NEW', peaksTab: 'Peaks_NEW', enrichmentTab: 'FCoTM Trip Index' },
   summary: {
     trips: trips.length,
     articles: reportUrls.size,
