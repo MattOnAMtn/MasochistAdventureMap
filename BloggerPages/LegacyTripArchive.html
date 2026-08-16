@@ -43,8 +43,8 @@
 #legacy-archive .la-footer{padding:9px 13px;color:#777;background:#fafafa;border-top:1px solid var(--la-line);font-size:10px}
 #legacy-archive .leaflet-popup-content{margin:12px 14px;font-family:Arial,sans-serif}
 #legacy-archive .la-popup-title{font-weight:700;margin-bottom:5px}
-@media(max-width:760px){#legacy-archive{max-width:100%;min-width:0;overflow-x:hidden}#legacy-archive .la-intro{padding:0 3px;margin-bottom:16px}#legacy-archive h1{font-size:30px}#legacy-archive .la-description{max-width:100%;overflow-wrap:anywhere}#legacy-archive .la-header{flex-wrap:wrap}#legacy-archive .la-stats{width:100%;order:3}#legacy-archive .la-controls{flex-wrap:wrap;padding:8px}#legacy-archive .la-search{flex-basis:100%}#legacy-archive .la-search input,#legacy-archive select{height:44px;font-size:16px}#legacy-archive select{width:auto;min-width:0;flex:1}#legacy-archive button{height:44px;padding:0 16px}#legacy-archive .la-view-buttons{flex-shrink:0}#legacy-archive .la-stage{height:70vh;min-height:480px}#legacy-archive .la-map-view{grid-template-columns:minmax(0,1fr)}#legacy-archive .la-results{display:none}#legacy-archive .la-list-row{grid-template-columns:1fr;gap:6px}}
-@supports(height:100svh){@media(max-width:760px){#legacy-archive .la-stage{height:65svh}}}
+@media(max-width:760px){#legacy-archive{max-width:100%;min-width:0;overflow-x:hidden}#legacy-archive .la-intro{padding:0 3px;margin-bottom:16px}#legacy-archive h1{font-size:30px}#legacy-archive .la-description{max-width:100%;overflow-wrap:anywhere}#legacy-archive .la-header{flex-wrap:wrap}#legacy-archive .la-stats{width:100%;order:3}#legacy-archive .la-controls{position:relative;z-index:950;flex-wrap:wrap;padding:8px}#legacy-archive .la-search{flex-basis:100%}#legacy-archive .la-search input,#legacy-archive select{height:44px;font-size:16px}#legacy-archive select{width:auto;min-width:0;flex:1}#legacy-archive button{height:44px;padding:0 16px}#legacy-archive .la-view-buttons{flex-shrink:0}#legacy-archive .la-stage{height:72vh;min-height:480px}#legacy-archive .la-map-view{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(250px,58%) minmax(180px,42%)}#legacy-map{min-height:0}#legacy-archive .la-results{display:block;min-height:0;border-left:0;border-top:1px solid var(--la-line)}#legacy-archive .la-card{padding:13px}#legacy-archive .la-list-row{grid-template-columns:1fr;gap:6px;padding:13px}#legacy-archive .la-links a,#legacy-archive .la-list-links a{display:inline-flex;align-items:center;min-height:30px;font-size:11px}}
+@supports(height:100dvh){@media(max-width:760px){#legacy-archive .la-stage{height:72dvh}}}
 </style>
 
 <section id="legacy-archive">
@@ -122,6 +122,9 @@
     Array.from(new Set(data.trips.reduce(function(all,t){return all.concat(t.types||[])},[]))).sort().forEach(function(value){var option=document.createElement('option');option.value=value;option.textContent=value;type.appendChild(option)});
     initializeMap();applyFilters();document.getElementById('la-loading').style.display='none';
   }).catch(function(error){var box=document.getElementById('la-error');document.getElementById('la-loading').style.display='none';box.textContent='The archive could not be loaded. '+error.message;box.style.display='flex'});
-  search.addEventListener('input',applyFilters);type.addEventListener('change',applyFilters);mapButton.addEventListener('click',function(){setView(true)});listButton.addEventListener('click',function(){setView(false)});
+  search.addEventListener('input',function(){applyFilters();if(window.matchMedia('(max-width:760px)').matches&&search.value.trim()){setView(false);list.scrollTop=0}});
+  search.addEventListener('focus',function(){if(window.matchMedia('(max-width:760px)').matches){setTimeout(function(){document.querySelector('#legacy-archive .la-controls').scrollIntoView({block:'start',behavior:'smooth'})},150)}});
+  search.addEventListener('keydown',function(event){if(event.key==='Enter')search.blur()});
+  type.addEventListener('change',applyFilters);mapButton.addEventListener('click',function(){setView(true)});listButton.addEventListener('click',function(){setView(false)});
 })();
 </script>
