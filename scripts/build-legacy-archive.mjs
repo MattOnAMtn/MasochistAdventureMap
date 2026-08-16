@@ -10,7 +10,7 @@ const SOURCES = {
 const clean = value => String(value ?? '').trim();
 const splitList = value => clean(value).split(/\s*(?:\||,)\s*/).filter(Boolean);
 const unique = values => [...new Set(values.filter(Boolean))];
-const REPORT_BASE = 'https://raw.githubusercontent.com/MattOnAMtn/MasochistAdventureMap/agent/adventure-map-fullscreen-layers/';
+const REPORT_BASE = 'https://github.com/MattOnAMtn/MasochistAdventureMap/blob/agent/adventure-map-fullscreen-layers/';
 
 function parseCsv(text) {
   const rows = [];
