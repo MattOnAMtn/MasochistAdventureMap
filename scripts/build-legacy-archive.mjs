@@ -66,10 +66,14 @@ function classifyMaps(row) {
     ...splitList(row['Map URL']),
     ...clean(row['All Map URLs']).split(/\s*\|\s*/).filter(Boolean),
   ]).filter(url => /^https?:\/\//i.test(url));
+  const host = url => {
+    try { return new URL(url).hostname.toLowerCase().replace(/^www\./, ''); }
+    catch { return ''; }
+  };
   return {
-    caltopo: urls.find(url => /(?:^|\.)caltopo\.com\//i.test(url)) ?? null,
-    staticImage: urls.find(url => /(?:^|\.)flickr\.com\//i.test(url)) ?? null,
-    other: urls.filter(url => !/(?:^|\.)(?:caltopo|flickr)\.com\//i.test(url)),
+    caltopo: urls.find(url => host(url) === 'caltopo.com') ?? null,
+    staticImage: urls.find(url => host(url) === 'flickr.com') ?? null,
+    other: urls.filter(url => !['caltopo.com', 'flickr.com'].includes(host(url))),
   };
 }
 
@@ -166,4 +170,3 @@ await writeFile('data/legacy-archive-audit.json', `${JSON.stringify({ warnings }
 
 console.log(`Built ${archive.summary.trips} trips, ${archive.summary.uniquePeaks} unique peaks, ${archive.summary.articles} report URLs.`);
 console.log(`${archive.summary.mappedTrips} trips mapped; ${archive.summary.caltopoMaps} CalTopo maps; ${warnings.length} audit warnings.`);
-
