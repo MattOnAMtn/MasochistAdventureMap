@@ -9,6 +9,10 @@ on:
     paths:
       - scripts/build-legacy-archive.mjs
       - .github/workflows/update-legacy-archive.yml
+  pull_request:
+    paths:
+      - scripts/build-legacy-archive.mjs
+      - .github/workflows/update-legacy-archive.yml
   schedule:
     - cron: '17 13 * * *'
 
@@ -24,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
