@@ -81,7 +81,7 @@
   var results=document.getElementById('la-results'),list=document.getElementById('la-list-view');
   var mapView=document.getElementById('la-map-view'),mapButton=document.getElementById('la-map-button'),listButton=document.getElementById('la-list-button');
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-  function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' – '+t.endDateDisplay:t.startDateDisplay}
+  function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' - '+t.endDateDisplay:t.startDateDisplay}
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
   function links(t){return link(t.reportUrl,'Read Report')+link(t.photosUrl,'Photos')+link(t.maps&&t.maps.caltopo,'Open Route Map')+link(t.maps&&t.maps.staticImage,'Map Image')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
   function tags(t){return(t.types||[]).map(function(tag){return'<span class="la-tag">'+esc(tag)+'</span>'}).join('')}
