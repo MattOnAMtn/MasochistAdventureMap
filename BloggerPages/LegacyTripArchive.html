@@ -83,7 +83,7 @@
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' - '+t.endDateDisplay:t.startDateDisplay}
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
-  function links(t){return link(t.reportUrl,'Read Report')+link(t.photosUrl,'Photos')+link(t.maps&&t.maps.caltopo,'Open Route Map')+link(t.maps&&t.maps.staticImage,'Map Image')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
+  function links(t){return link(t.reportUrl,'Read Report')+link(t.maps&&t.maps.caltopo,'Map CalTopo')+link(t.maps&&t.maps.staticImage,'Map Image')+link(t.photosUrl,'Photos')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
   function tags(t){return(t.types||[]).map(function(tag){return'<span class="la-tag">'+esc(tag)+'</span>'}).join('')}
   function card(t){return'<article class="la-card"><div class="la-date">'+esc(dateText(t))+'</div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
   function row(t){return'<article class="la-list-row"><div class="la-date">'+esc(dateText(t))+'</div><div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div></div><div class="la-list-links">'+links(t)+'</div></article>'}
