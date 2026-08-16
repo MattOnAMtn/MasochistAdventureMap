@@ -2,6 +2,13 @@ name: Update legacy trip archive
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - agent/adventure-map-fullscreen-layers
+    paths:
+      - scripts/build-legacy-archive.mjs
+      - .github/workflows/update-legacy-archive.yml
   schedule:
     - cron: '17 13 * * *'
 
@@ -40,4 +47,3 @@ jobs:
           git add data/legacy-archive.json data/legacy-archive-audit.json
           git commit -m 'Update legacy trip archive data'
           git push
-
