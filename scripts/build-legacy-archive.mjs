@@ -231,10 +231,14 @@ const trips = tripRows.map(row => {
   };
 });
 
+const standaloneReportTitles = new Set();
 for (const report of legacyReports) {
   if (linkedReportIds.has(report.driveId)) continue;
   const dates = reportDates(report.title);
   const title = reportTitle(report.title);
+  const titleKey = normalizedTitle(title);
+  if (standaloneReportTitles.has(titleKey)) continue;
+  standaloneReportTitles.add(titleKey);
   trips.push({
     id: `legacy-report-${report.path.split('/').pop().replace(/\.pdf$/i, '')}`,
     title,
