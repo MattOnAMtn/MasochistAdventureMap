@@ -44,12 +44,14 @@
       "id": "2023-06-02-mississippi-river-source-to-sea-thru-paddle",
       "title": "Our Mississippi River Thru Paddle By The Numbers | Mississippi River Source to Sea 2023",
       "alternateNames": [
-        "Mississippi River Source to Sea Thru Paddle"
+        "Mississippi River Source to Sea Thru Paddle",
+        "Mississippi River Source to Sea '23",
+        "Our Mississippi River Thru Paddle By The Numbers"
       ],
       "startDate": "2023-06-02",
-      "endDate": "2023-08-20",
+      "endDate": "2025-05-25",
       "startDateDisplay": "6/2/2023",
-      "endDateDisplay": "8/20/2023",
+      "endDateDisplay": "5/25/2025",
       "types": [
         "Paddling"
       ],
@@ -65,7 +67,10 @@
       },
       "location": null,
       "peaks": [],
-      "notes": null
+      "notes": null,
+      "photosUrls": [
+        "https://www.youtube.com/playlist?list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM"
+      ]
     },
     {
       "id": "2025-06-05-why-the-mississippi-river-might-be-the-best-long-d",
@@ -325,32 +330,6 @@
         "Paddling"
       ],
       "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/powering-our-paddle-with-my-250-voltaic.html",
-      "photosUrl": null,
-      "videos": [],
-      "maps": {
-        "caltopo": null,
-        "staticImage": null,
-        "other": []
-      },
-      "location": null,
-      "peaks": [],
-      "notes": null
-    },
-    {
-      "id": "2025-05-25-our-mississippi-river-thru-paddle-by-the-numbers",
-      "title": "Our Mississippi River Thru Paddle By The Numbers | Mississippi River Source to Sea 2023",
-      "alternateNames": [
-        "Mississippi River Source to Sea '23",
-        "Our Mississippi River Thru Paddle By The Numbers"
-      ],
-      "startDate": "2025-05-25",
-      "endDate": null,
-      "startDateDisplay": "5/25/2025",
-      "endDateDisplay": null,
-      "types": [
-        "Paddling"
-      ],
-      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/our-mississippi-river-thru-paddle-by.html",
       "photosUrl": null,
       "videos": [],
       "maps": {
@@ -641,7 +620,6 @@
     "2025-05-25-my-triple-crown-of-hiking-by-the-numbers: excluded because its report belongs in Guides & Articles",
     "2025-05-25-how-we-got-to-and-from-the-river: excluded because its report belongs in Guides & Articles",
     "2025-05-25-powering-our-paddle-with-a-250-voltaic-solar-box: excluded because its report belongs in Guides & Articles",
-    "2025-05-25-our-mississippi-river-thru-paddle-by-the-numbers: excluded because its report belongs in Guides & Articles",
     "2025-05-25-river-coordinates-distances: excluded because its report belongs in Guides & Articles",
     "2025-05-25-eastern-continental-trail-2021-key-west-to-canada-: excluded because its report belongs in Guides & Articles",
     "2025-05-25-gear-i-used-to-hike-the-pacific-crest-trail-in-202: excluded because its report belongs in Guides & Articles",
