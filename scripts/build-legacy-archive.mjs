@@ -195,6 +195,62 @@ function locationFor(trip, peaks) {
   };
 }
 
+function mergeReportEntries(entries) {
+  const groups = new Map();
+  const unlinked = [];
+  for (const entry of entries) {
+    const key = normalizedUrl(entry.reportUrl);
+    if (!key) { unlinked.push(entry); continue; }
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(entry);
+  }
+
+  const merged = [...unlinked];
+  for (const group of groups.values()) {
+    if (group.length === 1) { merged.push(group[0]); continue; }
+    const ordered = [...group].sort((a, b) => (a.startDate ?? '').localeCompare(b.startDate ?? ''));
+    const first = ordered[0];
+    const last = ordered[ordered.length - 1];
+    const title = first.title;
+    const locations = ordered.map(entry => entry.location).filter(Boolean);
+    const peaks = [];
+    const peakKeys = new Set();
+    for (const peak of ordered.flatMap(entry => entry.peaks ?? [])) {
+      const key = peak.peakbaggerId || normalizedTitle(peak.name);
+      if (!peakKeys.has(key)) { peakKeys.add(key); peaks.push(peak); }
+    }
+    merged.push({
+      ...first,
+      title,
+      alternateNames: unique(ordered.flatMap(entry => [
+        ...(entry.alternateNames ?? []),
+        normalizedTitle(entry.title) !== normalizedTitle(title) ? entry.title : null,
+      ])),
+      startDate: first.startDate,
+      endDate: last.endDate || last.startDate,
+      startDateDisplay: first.startDateDisplay,
+      endDateDisplay: last.endDateDisplay || last.startDateDisplay,
+      types: unique(ordered.flatMap(entry => entry.types ?? [])),
+      photosUrl: ordered.map(entry => entry.photosUrl).find(Boolean) ?? null,
+      photosUrls: unique(ordered.map(entry => entry.photosUrl)),
+      videos: unique(ordered.flatMap(entry => entry.videos ?? [])),
+      maps: {
+        caltopo: ordered.map(entry => entry.maps?.caltopo).find(Boolean) ?? null,
+        staticImage: ordered.map(entry => entry.maps?.staticImage).find(Boolean) ?? null,
+        other: unique(ordered.flatMap(entry => entry.maps?.other ?? [])),
+      },
+      location: locations.length ? {
+        lat: Number((locations.reduce((sum, point) => sum + point.lat, 0) / locations.length).toFixed(6)),
+        lng: Number((locations.reduce((sum, point) => sum + point.lng, 0) / locations.length).toFixed(6)),
+        source: locations.length === 1 ? locations[0].source : 'report-centroid',
+      } : null,
+      peaks,
+      notes: unique(ordered.map(entry => entry.notes)).join(' | ') || null,
+    });
+  }
+  return merged;
+}
+
 const policy = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
 const excludedReportUrls = new Set((policy.excludeReportUrls ?? []).map(normalizedUrl));
 const locationOverrides = policy.locationOverrides ?? {};
@@ -321,6 +377,8 @@ for (const report of legacyReports) {
     notes: 'Preserved legacy PDF report',
   }));
 }
+
+trips = mergeReportEntries(trips);
 
 for (const [tripId, orphanPeaks] of peaksByTrip) warnings.push(`${orphanPeaks.length} peak(s) reference missing trip ${tripId}`);
 
