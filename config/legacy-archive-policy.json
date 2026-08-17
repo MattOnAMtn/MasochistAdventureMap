@@ -81,6 +81,11 @@
     { "mapUrl": "https://caltopo.com/m/NELS", "titlePattern": "Florida Diving Planning", "lat": 27.17647, "lng": -81.5625, "source": "caltopo-map-center-approximate" }
   ],
   "locationOverrides": {
+    "2013-12-27-crystal-cave": {
+      "lat": 31.88518,
+      "lng": -109.21911,
+      "source": "published-location"
+    },
     "legacy-report-2007-08-08-3-hectic-days-in-new-york-2": {
       "lat": 40.7128,
       "lng": -74.006,
