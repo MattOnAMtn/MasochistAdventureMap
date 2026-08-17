@@ -1,7 +1,478 @@
 {
+  "excludedTrips": [
+    {
+      "id": "2004-12-04-santiago-completely-unprepared",
+      "title": "Santiago Completely Unprepared",
+      "alternateNames": [],
+      "startDate": "2004-12-04",
+      "endDate": null,
+      "startDateDisplay": "12/4/2004",
+      "endDateDisplay": null,
+      "types": [
+        "Peakbagging",
+        "Local Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/07/my-favorite-thru-hiking-camp-shoe.html",
+      "photosUrl": "http://www.flickr.com/photos/matthewhengst/sets/72157600556907606/",
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": {
+        "lat": 33.71056,
+        "lng": -117.5342,
+        "source": "peak"
+      },
+      "peaks": [
+        {
+          "name": "Santiago Peak",
+          "height": "5687",
+          "peakbaggerUrl": "http://www.peakbagger.com/peak.aspx?pid=1436",
+          "peakbaggerId": "1436",
+          "lat": 33.71056,
+          "lng": -117.5342,
+          "coordinateSource": "Peakbagger"
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "2023-06-02-mississippi-river-source-to-sea-thru-paddle",
+      "title": "Mississippi River Source to Sea Thru Paddle",
+      "alternateNames": [],
+      "startDate": "2023-06-02",
+      "endDate": "2023-08-20",
+      "startDateDisplay": "6/2/2023",
+      "endDateDisplay": "8/20/2023",
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/our-mississippi-river-thru-paddle-by.html",
+      "photosUrl": "https://www.youtube.com/playlist?list=PLgw5mInRAREayIdcDWaE_IMoTNw3OoKeM",
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": [
+          "https://blogger.googleusercontent.com/img/a/AVvXsEhq0FiqdyIn6MG2vKGuaAL17jmxvk1FxBy30sOxEx2tufJd1bI9R68o3wemD6MbdVMKN4m2Z5Fp4t7txfjvDA8kmN95iNfELroRDx2LnS_aTQA-0rJag3QhbyBDluVpVKxsRFrBS-ABUQ9ZPoi_05DLayZNlaF2xqUWNSuyfLHkx4ez1_1E7RxyBUs0Xxo"
+        ]
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-06-05-why-the-mississippi-river-might-be-the-best-long-d",
+      "title": "Why the Mississippi River Might Be the Best Long-Distance Trip in the U.S.",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-06-05",
+      "endDate": null,
+      "startDateDisplay": "6/5/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/06/why-mississippi-river-might-be-best.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-06-05-how-i-track-my-hikes-paddles-using-google-sheets",
+      "title": "How I Track My Hikes & Paddles Using Google Sheets",
+      "alternateNames": [
+        "Trip Planning"
+      ],
+      "startDate": "2025-06-05",
+      "endDate": null,
+      "startDateDisplay": "6/5/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/06/how-i-track-my-hikes-paddles-using.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-29-my-american-discovery-trail-2024-2026-thru-hike-by",
+      "title": "My American Discovery Trail 2024-2026(?) Thru Hike By The Numbers | Delaware to San Francisco On Foot",
+      "alternateNames": [],
+      "startDate": "2025-05-29",
+      "endDate": null,
+      "startDateDisplay": "5/29/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/05/my-american-discovery-trail-2024-2026.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-two-ways-to-finish-the-mississippi-river-the-atcha",
+      "title": "Two Ways to Finish the Mississippi River: The Atchafalaya vs Main Channel",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/05/two-ways-to-finish-mississippi-river.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-canoe-vs-kayak-for-the-mississippi-source-to-sea-w",
+      "title": "Canoe vs Kayak for the Mississippi Source to Sea: What We Used and Why",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/05/canoe-vs-kayak-for-mississippi-source.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-what-i-carry-to-stay-charged-thru-hiking-hint-its-",
+      "title": "What I Carry to Stay Charged Thru-Hiking (Hint: It’s Not Nitecore or a Solar Panel)",
+      "alternateNames": [],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/05/what-i-carry-to-stay-charged-thru.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-planning-resources-for-hiking-the-american-discove",
+      "title": "Planning Resources For Hiking The American Discovery Trail",
+      "alternateNames": [],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2025/05/planning-resources-for-hiking-american.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-matt-jens-favorite-thru-hiking-trail-dinner-freeze",
+      "title": "Matt & Jen's Favorite Thru Hiking Trail Dinner | Freeze Dried Beans + Minute Rice + Taco Seasoning",
+      "alternateNames": [],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2024/02/matt-jens-favorite-thru-hiking-trail.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-my-triple-crown-of-hiking-by-the-numbers",
+      "title": "My Triple Crown of Hiking By The Numbers",
+      "alternateNames": [],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/12/triple-crown-of-hiking.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-how-we-got-to-and-from-the-river",
+      "title": "How We Got to and From The River",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/how-we-got-to-and-from-river.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-powering-our-paddle-with-a-250-voltaic-solar-box",
+      "title": "Powering Our Paddle With a $250 Voltaic Solar Box",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/powering-our-paddle-with-my-250-voltaic.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-our-mississippi-river-thru-paddle-by-the-numbers",
+      "title": "Our Mississippi River Thru Paddle By The Numbers",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/our-mississippi-river-thru-paddle-by.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-river-coordinates-distances",
+      "title": "River Coordinates & Distances",
+      "alternateNames": [
+        "Mississippi River Source to Sea '23"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Paddling"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2023/08/river-coordinates-distances-mississippi.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-eastern-continental-trail-2021-key-west-to-canada-",
+      "title": "Eastern Continental Trail 2021: Key West to Canada By The Numbers",
+      "alternateNames": [],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2022/01/eastern-continental-trail-2021-key-west.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2025-05-25-gear-i-used-to-hike-the-pacific-crest-trail-in-202",
+      "title": "Gear I Used to Hike the Pacific Crest Trail in 2020",
+      "alternateNames": [
+        "Thru Hiking the Pacific Crest Trail in the Summer of COVID-19"
+      ],
+      "startDate": "2025-05-25",
+      "endDate": null,
+      "startDateDisplay": "5/25/2025",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2020/11/pct2020-gear.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2020-09-29-my-pacific-crest-trail-2020-thru-hike-by-the-numbe",
+      "title": "My Pacific Crest Trail 2020 Thru Hike By The Numbers",
+      "alternateNames": [
+        "Thru Hiking the Pacific Crest Trail in the Summer of COVID-19"
+      ],
+      "startDate": "2020-09-29",
+      "endDate": null,
+      "startDateDisplay": "9/29/2020",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "https://www.firstchurchofthemasochist.com/2020/09/my-pacific-crest-trail-2020-thru-hike.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    }
+  ],
   "warnings": [
     "2019-09-07-mount-ian-campbell: suspicious year in “9/8/3029”",
     "2023-10-01-continental-divide-trail-return: invalid date “9/31/2023”",
-    "2018-12-01-newport-harbor-pizza-paddle-halloween-2017-pirate-: invalid date “11/31/2018”"
+    "2018-12-01-newport-harbor-pizza-paddle-halloween-2017-pirate-: invalid date “11/31/2018”",
+    "2004-12-04-santiago-completely-unprepared: excluded because its report belongs in Guides & Articles",
+    "2023-06-02-mississippi-river-source-to-sea-thru-paddle: excluded because its report belongs in Guides & Articles",
+    "2025-06-05-why-the-mississippi-river-might-be-the-best-long-d: excluded because its report belongs in Guides & Articles",
+    "2025-06-05-how-i-track-my-hikes-paddles-using-google-sheets: excluded because its report belongs in Guides & Articles",
+    "2025-05-29-my-american-discovery-trail-2024-2026-thru-hike-by: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-two-ways-to-finish-the-mississippi-river-the-atcha: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-canoe-vs-kayak-for-the-mississippi-source-to-sea-w: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-what-i-carry-to-stay-charged-thru-hiking-hint-its-: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-planning-resources-for-hiking-the-american-discove: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-matt-jens-favorite-thru-hiking-trail-dinner-freeze: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-my-triple-crown-of-hiking-by-the-numbers: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-how-we-got-to-and-from-the-river: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-powering-our-paddle-with-a-250-voltaic-solar-box: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-our-mississippi-river-thru-paddle-by-the-numbers: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-river-coordinates-distances: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-eastern-continental-trail-2021-key-west-to-canada-: excluded because its report belongs in Guides & Articles",
+    "2025-05-25-gear-i-used-to-hike-the-pacific-crest-trail-in-202: excluded because its report belongs in Guides & Articles",
+    "2020-09-29-my-pacific-crest-trail-2020-thru-hike-by-the-numbe: excluded because its report belongs in Guides & Articles"
   ]
 }
