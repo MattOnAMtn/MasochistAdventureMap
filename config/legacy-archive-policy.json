@@ -36,6 +36,81 @@
       "lat": 40.7128,
       "lng": -74.006,
       "source": "manual-approximate"
+    },
+    "2018-06-02-overlook-mountain-tower-rock-golden-trout-wilderne": {
+      "lat": 36.33407,
+      "lng": -118.37267,
+      "source": "peakbagger"
+    },
+    "2018-04-02-day-3-little-harbor-to-parsons": {
+      "lat": 33.43432,
+      "lng": -118.52116,
+      "source": "peakbagger"
+    },
+    "2018-01-21-little-picacho": {
+      "lat": 32.98522,
+      "lng": -114.66199,
+      "source": "peakbagger"
+    },
+    "2016-11-25-studhorse-peak-1-2-3-burr-gap-to-boulder-highway-1": {
+      "lat": 37.874165,
+      "lng": -111.1148,
+      "source": "peakbagger-centroid"
+    },
+    "2015-01-01-muggins-peak-near-yuma": {
+      "lat": 32.74561,
+      "lng": -114.25196,
+      "source": "peakbagger"
+    },
+    "2014-12-20-valley-of-fire-peak": {
+      "lat": 36.43928,
+      "lng": -114.53105,
+      "source": "peakbagger"
+    },
+    "2012-11-24-valley-of-fire-peak": {
+      "lat": 36.43928,
+      "lng": -114.53105,
+      "source": "peakbagger"
+    },
+    "2012-11-23-valley-of-fire-white-dome-gibraltar": {
+      "lat": 36.48451,
+      "lng": -114.53182,
+      "source": "peakbagger"
+    },
+    "2012-04-06-buzzards-roost": {
+      "lat": 33.38105,
+      "lng": -111.27307,
+      "source": "peakbagger"
+    },
+    "2010-08-12-sierra-challenge-2010-mt-spencer": {
+      "lat": 37.15529,
+      "lng": -118.68161,
+      "source": "peakbagger"
+    },
+    "2020-05-04-southern-california-desert-section-of-the-pct": {
+      "lat": 34.4,
+      "lng": -117.5,
+      "source": "manual-region-midpoint"
+    },
+    "2020-06-20-sierra-nevada-section-of-the-pct": {
+      "lat": 37.3,
+      "lng": -118.7,
+      "source": "manual-region-midpoint"
+    },
+    "2020-07-13-nothern-california-section-of-the-pct": {
+      "lat": 40.2,
+      "lng": -121.5,
+      "source": "manual-region-midpoint"
+    },
+    "2020-08-13-oregon-section-of-the-pct": {
+      "lat": 43.7,
+      "lng": -121.8,
+      "source": "manual-region-midpoint"
+    },
+    "2020-09-02-washington-section-of-the-pct": {
+      "lat": 47.4,
+      "lng": -121.1,
+      "source": "manual-region-midpoint"
     }
   }
 }
