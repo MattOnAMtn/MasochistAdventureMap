@@ -28,6 +28,8 @@
 #legacy-archive .la-card:hover{border-color:#cdd9cf;box-shadow:0 2px 7px rgba(0,0,0,.07)}
 #legacy-archive .la-date{margin-bottom:7px;color:#888;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
 #legacy-archive .la-card h3{margin:0 0 7px;color:var(--la-ink);font-size:14px;line-height:1.35}
+#legacy-archive .la-title-link{display:inline;padding:0;color:inherit;background:none;border:0;font:inherit;font-weight:inherit;line-height:inherit;text-align:left;cursor:pointer}
+#legacy-archive .la-title-link:hover{color:var(--la-green);text-decoration:underline;text-underline-offset:2px}
 #legacy-archive .la-tags{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 12px;color:#879087;font-size:10px}
 #legacy-archive .la-tag{display:inline;padding:0;background:none;color:inherit}
 #legacy-archive .la-tag+.la-tag:before{content:'·';margin-right:5px}
@@ -73,7 +75,7 @@
   if(!root||root.getAttribute('data-la-initialized'))return;
   root.setAttribute('data-la-initialized','true');
   var DATA_URL='https://raw.githubusercontent.com/MattOnAMtn/MasochistAdventureMap/agent/adventure-map-fullscreen-layers/data/legacy-archive.json';
-  var archive=null,filtered=[],map=null,markers=null;
+  var archive=null,filtered=[],map=null,markers=null,markersById={};
   var search=root.querySelector('#la-search'),type=root.querySelector('#la-type'),reportsOnly=root.querySelector('#la-reports-only');
   var results=root.querySelector('#la-results');
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -81,7 +83,7 @@
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
   function links(t){return link(t.reportUrl,'Trip Report')+link(t.maps&&t.maps.caltopo,'CalTopo')+link(t.maps&&t.maps.staticImage,'Map Image')+link(t.photosUrl,'Photos')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
   function tags(t){return(t.types||[]).map(function(tag){return'<span class="la-tag">'+esc(tag)+'</span>'}).join('')}
-  function card(t){return'<article class="la-card"><h3>'+esc(t.title)+'</h3><div class="la-date">'+esc(dateText(t))+'</div><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
+  function card(t){var title=t.location?'<button class="la-title-link" type="button" data-trip-id="'+esc(t.id)+'">'+esc(t.title)+'</button>':esc(t.title);return'<article class="la-card"><h3>'+title+'</h3><div class="la-date">'+esc(dateText(t))+'</div><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
   function popup(t){return'<div class="la-popup-title">'+esc(t.title)+'</div><div>'+esc(dateText(t))+'</div><div class="la-links">'+links(t)+'</div>'}
   function initializeMap(){
     map=L.map(root.querySelector('#legacy-map'),{worldCopyJump:true}).setView([38,-112],4);
@@ -89,9 +91,15 @@
     markers=L.layerGroup().addTo(map);
   }
   function updateMarkers(){
-    markers.clearLayers();var bounds=[];
-    filtered.forEach(function(t){if(!t.location)return;var point=[t.location.lat,t.location.lng];bounds.push(point);L.circleMarker(point,{radius:5,color:'#fff',weight:1.5,fillColor:'#286632',fillOpacity:.9}).bindPopup(popup(t)).addTo(markers)});
+    markers.clearLayers();markersById={};var bounds=[];
+    filtered.forEach(function(t){if(!t.location)return;var point=[t.location.lat,t.location.lng],marker=L.circleMarker(point,{radius:5,color:'#fff',weight:1.5,fillColor:'#286632',fillOpacity:.9}).bindPopup(popup(t)).addTo(markers);bounds.push(point);markersById[t.id]=marker});
     if(bounds.length&&filtered.length<200)map.fitBounds(bounds,{padding:[25,25],maxZoom:9});
+  }
+  function focusTrip(id){
+    var trip=filtered.find(function(t){return t.id===id}),marker=markersById[id];
+    if(!trip||!trip.location||!marker)return;
+    map.setView([trip.location.lat,trip.location.lng],Math.max(map.getZoom(),9));marker.openPopup();
+    setTimeout(function(){map.invalidateSize();root.querySelector('#legacy-map').scrollIntoView({block:'center',behavior:'smooth'})},30);
   }
   function applyFilters(){
     var q=search.value.toLowerCase().trim(),chosen=type.value;
@@ -106,7 +114,7 @@
     root.querySelector('#la-footer').textContent=filtered.length+' trips shown · '+filtered.filter(function(t){return t.location}).length+' mapped';
     updateMarkers();
   }
-  fetch(DATA_URL).then(function(response){if(!response.ok)throw new Error('Archive data returned HTTP '+response.status);return response.json()}).then(function(data){
+  fetch(DATA_URL,{cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('Archive data returned HTTP '+response.status);return response.json()}).then(function(data){
     archive=data;filtered=data.trips;
     root.querySelector('#la-articles').textContent=data.summary.articles;
     root.querySelector('#la-peaks').textContent=data.summary.uniquePeaks;
@@ -116,6 +124,7 @@
   search.addEventListener('input',applyFilters);
   search.addEventListener('focus',function(){if(window.matchMedia('(max-width:760px)').matches){setTimeout(function(){root.querySelector('.la-controls').scrollIntoView({block:'start',behavior:'smooth'})},150)}});
   search.addEventListener('keydown',function(event){if(event.key==='Enter')search.blur()});
+  results.addEventListener('click',function(event){var title=event.target.closest('.la-title-link');if(title)focusTrip(title.getAttribute('data-trip-id'))});
   type.addEventListener('change',applyFilters);reportsOnly.addEventListener('change',applyFilters);
 })();
 </script>
