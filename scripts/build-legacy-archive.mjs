@@ -172,9 +172,17 @@ function locationFor(trip, peaks) {
 const policy = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
 const excludedReportUrls = new Set((policy.excludeReportUrls ?? []).map(normalizedUrl));
 const locationOverrides = policy.locationOverrides ?? {};
-const applyLocationOverride = trip => locationOverrides[trip.id]
-  ? { ...trip, location: { ...locationOverrides[trip.id] } }
-  : trip;
+const mapLocationDefaults = new Map(Object.entries(policy.mapLocationDefaults ?? {}).map(([url, location]) => [normalizedUrl(url), location]));
+const titleLocationRules = (policy.titleLocationRules ?? []).map(rule => ({ ...rule, expression: new RegExp(rule.titlePattern, 'i') }));
+const applyLocationOverride = trip => {
+  const idLocation = locationOverrides[trip.id];
+  if (idLocation) return { ...trip, location: { ...idLocation } };
+  const mapUrl = normalizedUrl(trip.maps?.caltopo);
+  const titleRule = titleLocationRules.find(rule => normalizedUrl(rule.mapUrl) === mapUrl && rule.expression.test(trip.title));
+  if (titleRule) return { ...trip, location: { lat: titleRule.lat, lng: titleRule.lng, source: titleRule.source } };
+  const mapDefault = mapLocationDefaults.get(mapUrl);
+  return mapDefault ? { ...trip, location: { ...mapDefault } } : trip;
+};
 
 const [tripCsv, peakCsv, originalCsv] = await Promise.all(Object.values(SOURCES).map(fetchCsv));
 const tripRows = records(tripCsv);
