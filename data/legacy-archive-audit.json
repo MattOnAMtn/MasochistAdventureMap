@@ -450,6 +450,166 @@
       "location": null,
       "peaks": [],
       "notes": null
+    },
+    {
+      "id": "2020-05-03-planning-prep",
+      "title": "Planning & Prep",
+      "alternateNames": [
+        "Thru Hiking the Pacific Crest Trail in the Summer of COVID-19"
+      ],
+      "startDate": "2020-05-03",
+      "endDate": null,
+      "startDateDisplay": "5/3/2020",
+      "endDateDisplay": null,
+      "types": [
+        "Long Distance Hiking"
+      ],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2020/06/planning-preperation-for-hiking-pacific.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2020-05-02-pandemic-crest-trail-the-choice-to-go-or-not-to-go",
+      "title": "Pandemic Crest Trail: The Choice to Go or Not To Go",
+      "alternateNames": [
+        "Thru Hiking the Pacific Crest Trail in the Summer of COVID-19"
+      ],
+      "startDate": "2020-05-02",
+      "endDate": null,
+      "startDateDisplay": "5/2/2020",
+      "endDateDisplay": null,
+      "types": [
+        "Long Distance Hiking"
+      ],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2020/05/pandemic-crest-trail-thru-hiking.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2019-09-20-matts-guide-to-the-theodore-solomons-trail",
+      "title": "Matt's Guide To The Theodore Solomons Trail",
+      "alternateNames": [
+        "By The Numbers",
+        "2019 Thru Hike"
+      ],
+      "startDate": "2019-09-20",
+      "endDate": null,
+      "startDateDisplay": "9/20/2019",
+      "endDateDisplay": null,
+      "types": [
+        "Thru-Hiking"
+      ],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2019/09/matts-guide-to-theodore-solomons-trail.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2013-11-26-garmin-basecamp-and-the-curse-of-the-corrupted-ish",
+      "title": "Garmin Basecamp and the curse of the corrupted (-ish) .NET install",
+      "alternateNames": [],
+      "startDate": "2013-11-26",
+      "endDate": null,
+      "startDateDisplay": "11/26/2013",
+      "endDateDisplay": null,
+      "types": [],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2013/11/garmin-basecamp-and-curse-of-corrupted.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2013-07-10-gear-review-garmin-oregon-650-initial-thoughts",
+      "title": "Gear Review: Garmin Oregon 650 Initial Thoughts",
+      "alternateNames": [],
+      "startDate": "2013-07-10",
+      "endDate": null,
+      "startDateDisplay": "7/10/2013",
+      "endDateDisplay": null,
+      "types": [],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2013/07/gear-review-garmin-oregon-650-initial.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2013-12-29-garmin-650-followup-review",
+      "title": "Garmin 650 Followup Review",
+      "alternateNames": [],
+      "startDate": "2013-12-29",
+      "endDate": null,
+      "startDateDisplay": "12/29/2013",
+      "endDateDisplay": null,
+      "types": [],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2013/12/garmin-650-followup-review.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
+    },
+    {
+      "id": "2012-08-08-a-cool-trick-for-garmin-basecamp-synching-the-data",
+      "title": "A cool trick for Garmin Basecamp: synching the database across multiple machines using Dropbox",
+      "alternateNames": [],
+      "startDate": "2012-08-08",
+      "endDate": null,
+      "startDateDisplay": "8/8/2012",
+      "endDateDisplay": null,
+      "types": [],
+      "reportUrl": "http://www.firstchurchofthemasochist.com/2013/11/a-cool-trick-for-garmin-basecamp.html",
+      "photosUrl": null,
+      "videos": [],
+      "maps": {
+        "caltopo": null,
+        "staticImage": null,
+        "other": []
+      },
+      "location": null,
+      "peaks": [],
+      "notes": null
     }
   ],
   "warnings": [
@@ -473,6 +633,13 @@
     "2025-05-25-river-coordinates-distances: excluded because its report belongs in Guides & Articles",
     "2025-05-25-eastern-continental-trail-2021-key-west-to-canada-: excluded because its report belongs in Guides & Articles",
     "2025-05-25-gear-i-used-to-hike-the-pacific-crest-trail-in-202: excluded because its report belongs in Guides & Articles",
-    "2020-09-29-my-pacific-crest-trail-2020-thru-hike-by-the-numbe: excluded because its report belongs in Guides & Articles"
+    "2020-09-29-my-pacific-crest-trail-2020-thru-hike-by-the-numbe: excluded because its report belongs in Guides & Articles",
+    "2020-05-03-planning-prep: excluded because its report belongs in Guides & Articles",
+    "2020-05-02-pandemic-crest-trail-the-choice-to-go-or-not-to-go: excluded because its report belongs in Guides & Articles",
+    "2019-09-20-matts-guide-to-the-theodore-solomons-trail: excluded because its report belongs in Guides & Articles",
+    "2013-11-26-garmin-basecamp-and-the-curse-of-the-corrupted-ish: excluded because its report belongs in Guides & Articles",
+    "2013-07-10-gear-review-garmin-oregon-650-initial-thoughts: excluded because its report belongs in Guides & Articles",
+    "2013-12-29-garmin-650-followup-review: excluded because its report belongs in Guides & Articles",
+    "2012-08-08-a-cool-trick-for-garmin-basecamp-synching-the-data: excluded because its report belongs in Guides & Articles"
   ]
 }
