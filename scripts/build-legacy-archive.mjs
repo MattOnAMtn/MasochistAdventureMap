@@ -6,6 +6,7 @@ const SOURCES = {
   peaks: `${SHEET}?output=csv&gid=470214005`,
   original: `${SHEET}?output=csv&gid=1376667324`,
 };
+const BLOG_FEED = 'https://www.firstchurchofthemasochist.com/feeds/posts/default';
 
 const clean = value => String(value ?? '').trim();
 const splitList = value => clean(value).split(/\s*(?:\||,)\s*/).filter(Boolean);
@@ -52,6 +53,24 @@ async function fetchCsv(url) {
   const response = await fetch(url, { headers: { 'user-agent': 'MasochistAdventureMap archive builder' } });
   if (!response.ok) throw new Error(`Could not fetch ${url}: HTTP ${response.status}`);
   return response.text();
+}
+
+async function fetchBloggerTitles() {
+  const titles = new Map();
+  const pageSize = 500;
+  for (let start = 1; ; start += pageSize) {
+    const url = `${BLOG_FEED}?alt=json&max-results=${pageSize}&start-index=${start}`;
+    const response = await fetch(url, { headers: { 'user-agent': 'MasochistAdventureMap archive builder' } });
+    if (!response.ok) throw new Error(`Could not fetch ${url}: HTTP ${response.status}`);
+    const entries = (await response.json()).feed?.entry ?? [];
+    for (const entry of entries) {
+      const title = clean(entry.title?.$t);
+      const alternate = (entry.link ?? []).find(link => link.rel === 'alternate')?.href;
+      if (title && alternate) titles.set(normalizedUrl(alternate), title);
+    }
+    if (entries.length < pageSize) break;
+  }
+  return titles;
 }
 
 function number(value) {
@@ -133,9 +152,16 @@ function recoveredMedia(group) {
 
 function driveFileId(url) {
   const value = clean(url);
-  if (value.includes('/d/')) return value.split('/d/')[1]?.split('/')[0] || null;
-  if (value.includes('id=')) return value.split('id=')[1]?.split('&')[0] || null;
-  return null;
+  try {
+    const parsed = new URL(value.replace(/&amp;/g, '&'));
+    const pathId = parsed.pathname.match(/\/d\/([^/]+)/)?.[1];
+    if (pathId) return pathId;
+    return parsed.searchParams.get('srcid') || parsed.searchParams.get('id') || null;
+  } catch {
+    const pathId = value.match(/\/d\/([^/]+)/)?.[1];
+    if (pathId) return pathId;
+    return value.match(/[?&](?:srcid|id)=([^&]+)/i)?.[1] || null;
+  }
 }
 
 function reportDates(title) {
@@ -184,7 +210,10 @@ const applyLocationOverride = trip => {
   return mapDefault ? { ...trip, location: { ...mapDefault } } : trip;
 };
 
-const [tripCsv, peakCsv, originalCsv] = await Promise.all(Object.values(SOURCES).map(fetchCsv));
+const [tripCsv, peakCsv, originalCsv, bloggerTitles] = await Promise.all([
+  ...Object.values(SOURCES).map(fetchCsv),
+  fetchBloggerTitles(),
+]);
 const tripRows = records(tripCsv);
 const peakRows = records(peakCsv);
 const originalGroups = groupOriginalTrips(records(originalCsv));
@@ -227,24 +256,32 @@ for (const row of peakRows) {
 const seen = new Set();
 let trips = tripRows.map(row => {
   const id = clean(row['Trip ID']);
-  const title = clean(row['Trip Name']);
-  if (!id) warnings.push(`Trip “${title || '(unnamed)'}” has no Trip ID`);
+  const indexTitle = clean(row['Trip Name']);
+  if (!id) warnings.push(`Trip “${indexTitle || '(unnamed)'}” has no Trip ID`);
   if (seen.has(id)) warnings.push(`Duplicate Trip ID: ${id}`);
   seen.add(id);
   const peaks = peaksByTrip.get(id) ?? [];
   peaksByTrip.delete(id);
-  const matches = originalsByKey.get(tripKey(row['Date Start'], title)) ?? [];
-  if (matches.length > 1) warnings.push(`${id || title}: multiple original trip groups matched`);
+  const matches = originalsByKey.get(tripKey(row['Date Start'], indexTitle)) ?? [];
+  if (matches.length > 1) warnings.push(`${id || indexTitle}: multiple original trip groups matched`);
   const recovered = recoveredMedia(matches[0]);
   const sourceReportUrl = clean(row['TR URL']) || recovered.report;
   const archivedReport = reportsByDriveId.get(driveFileId(sourceReportUrl));
   if (archivedReport) linkedReportIds.add(archivedReport.driveId);
+  const publishedTitle = archivedReport
+    ? reportTitle(archivedReport.title)
+    : bloggerTitles.get(normalizedUrl(sourceReportUrl));
+  const title = publishedTitle || indexTitle;
+  const alternateNames = unique([
+    ...splitList(row['Alt Names']),
+    normalizedTitle(indexTitle) !== normalizedTitle(title) ? indexTitle : null,
+  ]);
   return applyLocationOverride({
     id,
     title,
-    alternateNames: splitList(row['Alt Names']),
-    startDate: isoDate(row['Date Start'], warnings, id || title),
-    endDate: isoDate(row['Date End'], warnings, id || title),
+    alternateNames,
+    startDate: isoDate(row['Date Start'], warnings, id || indexTitle),
+    endDate: isoDate(row['Date End'], warnings, id || indexTitle),
     startDateDisplay: clean(row['Date Start']) || null,
     endDateDisplay: clean(row['Date End']) || null,
     types: splitList(row['Trip Types']),
