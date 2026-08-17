@@ -47,6 +47,7 @@
     "https://caltopo.com/m/7PDC": { "lat": 37.66181, "lng": -111.44338, "source": "caltopo-bounds-center" },
     "https://caltopo.com/m/T05N": { "lat": 36.32425, "lng": -118.54282, "source": "caltopo-bounds-center" },
     "https://caltopo.com/m/1112": { "lat": 37.95232, "lng": -115.62836, "source": "caltopo-bounds-center" },
+    "https://caltopo.com/m/VL6K": { "lat": 37.26471, "lng": -111.36877, "source": "writeup-place-approximate" },
     "https://caltopo.com/m/6Q3C": { "lat": 33.60683, "lng": -117.90244, "source": "caltopo-map-center-approximate" },
     "https://caltopo.com/m/T8R1": { "lat": 37.03764, "lng": -118.8858, "source": "caltopo-map-center-approximate" },
     "https://caltopo.com/m/8CUT": { "lat": 35.61265, "lng": -114.85107, "source": "caltopo-map-center-approximate" },
