@@ -23,15 +23,17 @@
 #legacy-archive .la-error{display:none;padding:30px;text-align:center;color:#8b2929}
 #legacy-archive .la-map-view{display:grid;grid-template-columns:minmax(0,1fr) 330px;height:100%}
 #legacy-map{height:100%;background:#e1e5e2}
-#legacy-archive .la-results{overflow:auto;border-left:1px solid var(--la-line);background:#fff}
-#legacy-archive .la-card{padding:15px;border-bottom:1px solid #e7e7e7}
-#legacy-archive .la-card:hover{background:#f8f8f8}
-#legacy-archive .la-date{margin-bottom:5px;color:#888;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
-#legacy-archive .la-card h3{margin:0 0 5px;color:var(--la-ink);font-size:14px;line-height:1.35}
-#legacy-archive .la-tags{margin-top:8px}
-#legacy-archive .la-tag{display:inline-block;margin:0 3px 3px 0;padding:3px 6px;background:#edf4ee;color:#526c56;font-size:9px}
-#legacy-archive .la-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px}
-#legacy-archive .la-links a{color:var(--la-green);text-decoration:none;font-size:10px;font-weight:700}
+#legacy-archive .la-results{overflow:auto;border-left:1px solid var(--la-line);background:#f7f7f7}
+#legacy-archive .la-card{margin:10px;padding:13px 14px 14px;background:#fff;border:1px solid #e2e2e2;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+#legacy-archive .la-card:hover{border-color:#cdd9cf;box-shadow:0 2px 7px rgba(0,0,0,.07)}
+#legacy-archive .la-date{margin-bottom:7px;color:#888;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+#legacy-archive .la-card h3{margin:0 0 7px;color:var(--la-ink);font-size:14px;line-height:1.35}
+#legacy-archive .la-tags{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 12px;color:#879087;font-size:10px}
+#legacy-archive .la-tag{display:inline;padding:0;background:none;color:inherit}
+#legacy-archive .la-tag+.la-tag:before{content:'·';margin-right:5px}
+#legacy-archive .la-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:0}
+#legacy-archive .la-links a{min-height:27px;padding:0 7px;display:inline-flex;align-items:center;color:var(--la-green);background:transparent;border:1px solid #cdd9cf;border-radius:3px;text-decoration:none;font-size:10px;font-weight:700}
+#legacy-archive .la-links a:first-child{color:#fff;background:var(--la-green);border-color:var(--la-green)}
 #legacy-archive .la-footer{padding:9px 13px;color:#777;background:#fafafa;border-top:1px solid var(--la-line);font-size:10px}
 #legacy-archive .leaflet-popup-content{margin:12px 14px;font-family:Arial,sans-serif}
 #legacy-archive .la-popup-title{font-weight:700;margin-bottom:5px}
@@ -77,9 +79,9 @@
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' - '+t.endDateDisplay:t.startDateDisplay}
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
-  function links(t){return link(t.reportUrl,'Read Report')+link(t.maps&&t.maps.caltopo,'Map CalTopo')+link(t.maps&&t.maps.staticImage,'Map Image')+link(t.photosUrl,'Photos')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
+  function links(t){return link(t.reportUrl,'Trip Report')+link(t.maps&&t.maps.caltopo,'CalTopo')+link(t.maps&&t.maps.staticImage,'Map Image')+link(t.photosUrl,'Photos')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
   function tags(t){return(t.types||[]).map(function(tag){return'<span class="la-tag">'+esc(tag)+'</span>'}).join('')}
-  function card(t){return'<article class="la-card"><div class="la-date">'+esc(dateText(t))+'</div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
+  function card(t){return'<article class="la-card"><h3>'+esc(t.title)+'</h3><div class="la-date">'+esc(dateText(t))+'</div><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
   function popup(t){return'<div class="la-popup-title">'+esc(t.title)+'</div><div>'+esc(dateText(t))+'</div><div class="la-links">'+links(t)+'</div>'}
   function initializeMap(){
     map=L.map(root.querySelector('#legacy-map'),{worldCopyJump:true}).setView([38,-112],4);
