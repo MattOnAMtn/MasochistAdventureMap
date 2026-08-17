@@ -1,0 +1,41 @@
+{
+  "excludeReportUrls": [
+    "https://www.firstchurchofthemasochist.com/2025/07/my-favorite-thru-hiking-camp-shoe.html",
+    "https://www.firstchurchofthemasochist.com/2025/06/how-i-track-my-hikes-paddles-using.html",
+    "https://www.firstchurchofthemasochist.com/2025/05/what-i-carry-to-stay-charged-thru.html",
+    "https://www.firstchurchofthemasochist.com/2024/02/matt-jens-favorite-thru-hiking-trail.html",
+    "https://www.firstchurchofthemasochist.com/2020/11/pct2020-gear.html",
+    "https://www.firstchurchofthemasochist.com/2020/12/pacific-crest-trail-2020-gear-deep-dive.html",
+    "https://www.firstchurchofthemasochist.com/2019/02/guidebooks-on-go-turning-closet-full-of.html",
+    "https://www.firstchurchofthemasochist.com/2019/05/gear-review-surface-go-tabletlaptop.html",
+    "https://www.firstchurchofthemasochist.com/2018/06/pats-backcountry-beverages-backpacking.html",
+    "https://www.firstchurchofthemasochist.com/2017/05/sony-tx30vs-olympus-TG4.html",
+    "https://www.firstchurchofthemasochist.com/2013/12/garmin-650-followup-review.html",
+    "https://www.firstchurchofthemasochist.com/2013/11/garmin-basecamp-and-curse-of-corrupted.html",
+    "https://www.firstchurchofthemasochist.com/2013/07/gear-review-garmin-oregon-650-initial.html",
+    "https://www.firstchurchofthemasochist.com/2013/11/a-cool-trick-for-garmin-basecamp.html",
+    "https://www.firstchurchofthemasochist.com/2023/08/our-mississippi-river-thru-paddle-by.html",
+    "https://www.firstchurchofthemasochist.com/2025/06/why-mississippi-river-might-be-best.html",
+    "https://www.firstchurchofthemasochist.com/2025/05/two-ways-to-finish-mississippi-river.html",
+    "https://www.firstchurchofthemasochist.com/2025/05/canoe-vs-kayak-for-mississippi-source.html",
+    "https://www.firstchurchofthemasochist.com/2023/08/how-we-got-to-and-from-river.html",
+    "https://www.firstchurchofthemasochist.com/2023/08/powering-our-paddle-with-my-250-voltaic.html",
+    "https://www.firstchurchofthemasochist.com/2023/08/river-coordinates-distances-mississippi.html",
+    "https://www.firstchurchofthemasochist.com/2025/05/my-american-discovery-trail-2024-2026.html",
+    "https://www.firstchurchofthemasochist.com/2025/05/planning-resources-for-hiking-american.html",
+    "https://www.firstchurchofthemasochist.com/2023/12/triple-crown-of-hiking.html",
+    "https://www.firstchurchofthemasochist.com/2020/09/my-pacific-crest-trail-2020-thru-hike.html",
+    "https://www.firstchurchofthemasochist.com/2020/06/planning-preperation-for-hiking-pacific.html",
+    "https://www.firstchurchofthemasochist.com/2020/05/pandemic-crest-trail-thru-hiking.html",
+    "https://www.firstchurchofthemasochist.com/2022/01/eastern-continental-trail-2021-key-west.html",
+    "https://www.firstchurchofthemasochist.com/2019/09/matts-guide-to-theodore-solomons-trail.html",
+    "https://www.firstchurchofthemasochist.com/2013/09/why-i-love-desert.html"
+  ],
+  "locationOverrides": {
+    "legacy-report-2007-08-08-3-hectic-days-in-new-york-2": {
+      "lat": 40.7128,
+      "lng": -74.006,
+      "source": "manual-approximate"
+    }
+  }
+}

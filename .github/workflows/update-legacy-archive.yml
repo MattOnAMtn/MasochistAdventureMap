@@ -8,10 +8,12 @@ on:
       - agent/adventure-map-fullscreen-layers
     paths:
       - scripts/build-legacy-archive.mjs
+      - config/legacy-archive-policy.json
       - .github/workflows/update-legacy-archive.yml
   pull_request:
     paths:
       - scripts/build-legacy-archive.mjs
+      - config/legacy-archive-policy.json
       - .github/workflows/update-legacy-archive.yml
   schedule:
     - cron: '17 13 * * *'

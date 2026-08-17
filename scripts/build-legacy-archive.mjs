@@ -11,6 +11,7 @@ const clean = value => String(value ?? '').trim();
 const splitList = value => clean(value).split(/\s*(?:\||,)\s*/).filter(Boolean);
 const unique = values => [...new Set(values.filter(Boolean))];
 const REPORT_BASE = 'https://github.com/MattOnAMtn/MasochistAdventureMap/blob/agent/adventure-map-fullscreen-layers/';
+const POLICY_PATH = 'config/legacy-archive-policy.json';
 
 function parseCsv(text) {
   const rows = [];
@@ -157,6 +158,13 @@ function locationFor(trip, peaks) {
   };
 }
 
+const policy = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
+const excludedReportUrls = new Set((policy.excludeReportUrls ?? []).map(clean));
+const locationOverrides = policy.locationOverrides ?? {};
+const applyLocationOverride = trip => locationOverrides[trip.id]
+  ? { ...trip, location: { ...locationOverrides[trip.id] } }
+  : trip;
+
 const [tripCsv, peakCsv, originalCsv] = await Promise.all(Object.values(SOURCES).map(fetchCsv));
 const tripRows = records(tripCsv);
 const peakRows = records(peakCsv);
@@ -198,7 +206,7 @@ for (const row of peakRows) {
 }
 
 const seen = new Set();
-const trips = tripRows.map(row => {
+let trips = tripRows.map(row => {
   const id = clean(row['Trip ID']);
   const title = clean(row['Trip Name']);
   if (!id) warnings.push(`Trip “${title || '(unnamed)'}” has no Trip ID`);
@@ -212,7 +220,7 @@ const trips = tripRows.map(row => {
   const sourceReportUrl = clean(row['TR URL']) || recovered.report;
   const archivedReport = reportsByDriveId.get(driveFileId(sourceReportUrl));
   if (archivedReport) linkedReportIds.add(archivedReport.driveId);
-  return {
+  return applyLocationOverride({
     id,
     title,
     alternateNames: splitList(row['Alt Names']),
@@ -228,7 +236,7 @@ const trips = tripRows.map(row => {
     location: locationFor(row, peaks),
     peaks,
     notes: clean(row.Notes) || null,
-  };
+  });
 });
 
 const standaloneReportTitles = new Set();
@@ -239,7 +247,7 @@ for (const report of legacyReports) {
   const titleKey = normalizedTitle(title);
   if (standaloneReportTitles.has(titleKey)) continue;
   standaloneReportTitles.add(titleKey);
-  trips.push({
+  trips.push(applyLocationOverride({
     id: `legacy-report-${report.path.split('/').pop().replace(/\.pdf$/i, '')}`,
     title,
     alternateNames: [],
@@ -255,10 +263,14 @@ for (const report of legacyReports) {
     location: null,
     peaks: [],
     notes: 'Preserved legacy PDF report',
-  });
+  }));
 }
 
 for (const [tripId, orphanPeaks] of peaksByTrip) warnings.push(`${orphanPeaks.length} peak(s) reference missing trip ${tripId}`);
+
+const excludedTrips = trips.filter(trip => excludedReportUrls.has(trip.reportUrl));
+trips = trips.filter(trip => !excludedReportUrls.has(trip.reportUrl));
+for (const trip of excludedTrips) warnings.push(`${trip.id || trip.title}: excluded because its report belongs in Guides & Articles`);
 
 trips.sort((a, b) => (b.startDate ?? '').localeCompare(a.startDate ?? '') || a.title.localeCompare(b.title));
 const reportUrls = new Set(trips.map(trip => trip.reportUrl).filter(Boolean));
@@ -274,13 +286,15 @@ const archive = {
     caltopoMaps: trips.filter(trip => trip.maps.caltopo).length,
     staticMapImages: trips.filter(trip => trip.maps.staticImage).length,
     legacyPdfReports: legacyReports.length,
+    excludedGuideArticles: excludedTrips.length,
   },
   trips,
 };
 
 await mkdir('data', { recursive: true });
 await writeFile('data/legacy-archive.json', `${JSON.stringify(archive)}\n`);
-await writeFile('data/legacy-archive-audit.json', `${JSON.stringify({ warnings }, null, 2)}\n`);
+await writeFile('data/legacy-archive-audit.json', `${JSON.stringify({ excludedTrips, warnings }, null, 2)}\n`);
 
 console.log(`Built ${archive.summary.trips} trips, ${archive.summary.uniquePeaks} unique peaks, ${archive.summary.articles} report URLs.`);
 console.log(`${archive.summary.mappedTrips} trips mapped; ${archive.summary.caltopoMaps} CalTopo maps; ${warnings.length} audit warnings.`);
+console.log(`${archive.summary.excludedGuideArticles} Guides & Articles duplicates excluded.`);
