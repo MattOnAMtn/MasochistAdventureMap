@@ -10,6 +10,17 @@ const SOURCES = {
 const clean = value => String(value ?? '').trim();
 const splitList = value => clean(value).split(/\s*(?:\||,)\s*/).filter(Boolean);
 const unique = values => [...new Set(values.filter(Boolean))];
+const normalizedUrl = value => {
+  try {
+    const url = new URL(clean(value));
+    url.protocol = 'https:';
+    url.hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+    url.hash = '';
+    return url.toString().replace(/\/$/, '');
+  } catch {
+    return clean(value);
+  }
+};
 const REPORT_BASE = 'https://github.com/MattOnAMtn/MasochistAdventureMap/blob/agent/adventure-map-fullscreen-layers/';
 const POLICY_PATH = 'config/legacy-archive-policy.json';
 
@@ -159,7 +170,7 @@ function locationFor(trip, peaks) {
 }
 
 const policy = JSON.parse(await readFile(POLICY_PATH, 'utf8'));
-const excludedReportUrls = new Set((policy.excludeReportUrls ?? []).map(clean));
+const excludedReportUrls = new Set((policy.excludeReportUrls ?? []).map(normalizedUrl));
 const locationOverrides = policy.locationOverrides ?? {};
 const applyLocationOverride = trip => locationOverrides[trip.id]
   ? { ...trip, location: { ...locationOverrides[trip.id] } }
@@ -268,8 +279,8 @@ for (const report of legacyReports) {
 
 for (const [tripId, orphanPeaks] of peaksByTrip) warnings.push(`${orphanPeaks.length} peak(s) reference missing trip ${tripId}`);
 
-const excludedTrips = trips.filter(trip => excludedReportUrls.has(trip.reportUrl));
-trips = trips.filter(trip => !excludedReportUrls.has(trip.reportUrl));
+const excludedTrips = trips.filter(trip => excludedReportUrls.has(normalizedUrl(trip.reportUrl)));
+trips = trips.filter(trip => !excludedReportUrls.has(normalizedUrl(trip.reportUrl)));
 for (const trip of excludedTrips) warnings.push(`${trip.id || trip.title}: excluded because its report belongs in Guides & Articles`);
 
 trips.sort((a, b) => (b.startDate ?? '').localeCompare(a.startDate ?? '') || a.title.localeCompare(b.title));
