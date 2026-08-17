@@ -11,15 +11,13 @@
 #legacy-archive .la-stats{margin-right:auto;color:var(--la-muted);font-size:11px}
 #legacy-archive .la-stats b{color:var(--la-ink)}
 #legacy-archive .la-controls{padding:9px 13px;display:flex;gap:8px;background:#fafafa;border-bottom:1px solid var(--la-line)}
-#legacy-archive input,#legacy-archive select,#legacy-archive button{font:inherit}
+#legacy-archive input,#legacy-archive select{font:inherit}
 #legacy-archive .la-search{flex:1;min-width:0}
 #legacy-archive .la-search input,#legacy-archive select{width:100%;height:38px;padding:0 11px;color:var(--la-ink);background:#fff;border:1px solid #d4d4d4;border-radius:2px;outline:none;font-size:13px}
 #legacy-archive .la-search input:focus,#legacy-archive select:focus{border-color:var(--la-green)}
 #legacy-archive select{width:210px}
-#legacy-archive .la-view-buttons{display:flex;gap:4px}
-#legacy-archive button{height:38px;padding:0 14px;color:#555;background:#fff;border:1px solid #ccc;border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
-#legacy-archive button:hover{color:var(--la-green);border-color:var(--la-green)}
-#legacy-archive button.active{color:#fff;background:var(--la-green);border-color:var(--la-green)}
+#legacy-archive .la-reports-only{height:38px;padding:0 11px;display:flex;align-items:center;gap:7px;flex:0 0 auto;color:#555;background:#fff;border:1px solid #d4d4d4;border-radius:2px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}
+#legacy-archive .la-reports-only input{width:16px;height:16px;margin:0;accent-color:var(--la-green)}
 #legacy-archive .la-stage{height:min(720px,68vh);min-height:540px;position:relative}
 #legacy-archive .la-loading,#legacy-archive .la-error{position:absolute;inset:0;z-index:900;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--la-muted);font-size:13px}
 #legacy-archive .la-error{display:none;padding:30px;text-align:center;color:#8b2929}
@@ -34,16 +32,10 @@
 #legacy-archive .la-tag{display:inline-block;margin:0 3px 3px 0;padding:3px 6px;background:#edf4ee;color:#526c56;font-size:9px}
 #legacy-archive .la-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px}
 #legacy-archive .la-links a{color:var(--la-green);text-decoration:none;font-size:10px;font-weight:700}
-#legacy-archive .la-list-view{display:none;height:100%;overflow:auto;background:#fff}
-#legacy-archive .la-list-row{display:grid;grid-template-columns:120px minmax(260px,1fr) 230px;padding:15px;border-bottom:1px solid #e7e7e7}
-#legacy-archive .la-list-row:hover{background:#f8f8f8}
-#legacy-archive .la-list-row h3{margin:0 0 5px;font-size:15px}
-#legacy-archive .la-list-row .la-date{margin:2px 0 0}
-#legacy-archive .la-list-links a{display:inline-block;margin:0 8px 7px 0;color:var(--la-green);text-decoration:none;font-size:10px;font-weight:700}
 #legacy-archive .la-footer{padding:9px 13px;color:#777;background:#fafafa;border-top:1px solid var(--la-line);font-size:10px}
 #legacy-archive .leaflet-popup-content{margin:12px 14px;font-family:Arial,sans-serif}
 #legacy-archive .la-popup-title{font-weight:700;margin-bottom:5px}
-@media(max-width:760px){#legacy-archive{max-width:100%;min-width:0;overflow-x:hidden}#legacy-archive .la-intro{padding:0 3px;margin-bottom:16px}#legacy-archive h1{font-size:30px}#legacy-archive .la-description{max-width:100%;overflow-wrap:anywhere}#legacy-archive .la-header{flex-wrap:wrap}#legacy-archive .la-stats{width:100%;order:3}#legacy-archive .la-controls{position:relative;z-index:950;flex-wrap:wrap;padding:8px}#legacy-archive .la-search{flex-basis:100%}#legacy-archive .la-search input,#legacy-archive select{height:44px;font-size:16px}#legacy-archive select{width:auto;min-width:0;flex:1}#legacy-archive button{height:44px;padding:0 16px}#legacy-archive .la-view-buttons{flex-shrink:0}#legacy-archive .la-stage{height:72vh;min-height:480px}#legacy-archive .la-map-view{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(250px,58%) minmax(180px,42%)}#legacy-map{min-height:0}#legacy-archive .la-results{display:block;min-height:0;border-left:0;border-top:1px solid var(--la-line)}#legacy-archive .la-card{padding:13px}#legacy-archive .la-list-row{grid-template-columns:1fr;gap:6px;padding:13px}#legacy-archive .la-links a,#legacy-archive .la-list-links a{display:inline-flex;align-items:center;min-height:30px;font-size:11px}}
+@media(max-width:760px){#legacy-archive{max-width:100%;min-width:0;overflow-x:hidden}#legacy-archive .la-intro{padding:0 3px;margin-bottom:16px}#legacy-archive h1{font-size:30px}#legacy-archive .la-description{max-width:100%;overflow-wrap:anywhere}#legacy-archive .la-header{flex-wrap:wrap}#legacy-archive .la-stats{width:100%;order:3}#legacy-archive .la-controls{position:relative;z-index:950;flex-wrap:wrap;padding:8px}#legacy-archive .la-search{flex-basis:100%}#legacy-archive .la-search input,#legacy-archive select{height:44px;font-size:16px}#legacy-archive select{width:auto;min-width:0;flex:1}#legacy-archive .la-reports-only{height:44px;font-size:11px}#legacy-archive .la-stage{height:72vh;min-height:480px}#legacy-archive .la-map-view{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(250px,58%) minmax(180px,42%)}#legacy-map{min-height:0}#legacy-archive .la-results{display:block;min-height:0;border-left:0;border-top:1px solid var(--la-line)}#legacy-archive .la-card{padding:13px}#legacy-archive .la-links a{display:inline-flex;align-items:center;min-height:30px;font-size:11px}}
 @supports(height:100dvh){@media(max-width:760px){#legacy-archive .la-stage{height:72dvh}}}
 </style>
 
@@ -60,13 +52,12 @@
     <div class="la-controls">
       <label class="la-search"><input id="la-search" type="search" placeholder="Search trips, places, peaks, and activities…" /></label>
       <select id="la-type"><option value="">All activities</option></select>
-      <div class="la-view-buttons"><button id="la-map-button" class="active" type="button">Map</button><button id="la-list-button" type="button">List</button></div>
+      <label class="la-reports-only"><input id="la-reports-only" type="checkbox" checked /> Reports only</label>
     </div>
     <div class="la-stage">
       <div id="la-loading" class="la-loading">Loading the archive…</div>
       <div id="la-error" class="la-error"></div>
       <div id="la-map-view" class="la-map-view"><div id="legacy-map"></div><div id="la-results" class="la-results"></div></div>
-      <div id="la-list-view" class="la-list-view"></div>
     </div>
     <div id="la-footer" class="la-footer"></div>
   </div>
@@ -81,16 +72,14 @@
   root.setAttribute('data-la-initialized','true');
   var DATA_URL='https://raw.githubusercontent.com/MattOnAMtn/MasochistAdventureMap/agent/adventure-map-fullscreen-layers/data/legacy-archive.json';
   var archive=null,filtered=[],map=null,markers=null;
-  var search=root.querySelector('#la-search'),type=root.querySelector('#la-type');
-  var results=root.querySelector('#la-results'),list=root.querySelector('#la-list-view');
-  var mapView=root.querySelector('#la-map-view'),mapButton=root.querySelector('#la-map-button'),listButton=root.querySelector('#la-list-button');
+  var search=root.querySelector('#la-search'),type=root.querySelector('#la-type'),reportsOnly=root.querySelector('#la-reports-only');
+  var results=root.querySelector('#la-results');
   function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function dateText(t){if(!t.startDateDisplay)return'Undated';return t.endDateDisplay&&t.endDateDisplay!==t.startDateDisplay?t.startDateDisplay+' - '+t.endDateDisplay:t.startDateDisplay}
   function link(url,label){return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>':''}
   function links(t){return link(t.reportUrl,'Read Report')+link(t.maps&&t.maps.caltopo,'Map CalTopo')+link(t.maps&&t.maps.staticImage,'Map Image')+link(t.photosUrl,'Photos')+(t.maps&&t.maps.other||[]).map(function(url){return link(url,'Other Map')}).join('')}
   function tags(t){return(t.types||[]).map(function(tag){return'<span class="la-tag">'+esc(tag)+'</span>'}).join('')}
   function card(t){return'<article class="la-card"><div class="la-date">'+esc(dateText(t))+'</div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div><div class="la-links">'+links(t)+'</div></article>'}
-  function row(t){return'<article class="la-list-row"><div class="la-date">'+esc(dateText(t))+'</div><div><h3>'+esc(t.title)+'</h3><div class="la-tags">'+tags(t)+'</div></div><div class="la-list-links">'+links(t)+'</div></article>'}
   function popup(t){return'<div class="la-popup-title">'+esc(t.title)+'</div><div>'+esc(dateText(t))+'</div><div class="la-links">'+links(t)+'</div>'}
   function initializeMap(){
     map=L.map(root.querySelector('#legacy-map'),{worldCopyJump:true}).setView([38,-112],4);
@@ -105,18 +94,15 @@
   function applyFilters(){
     var q=search.value.toLowerCase().trim(),chosen=type.value;
     filtered=archive.trips.filter(function(t){
+      if(reportsOnly.checked&&!t.reportUrl)return false;
       if(chosen&&(t.types||[]).indexOf(chosen)<0)return false;
       if(!q)return true;
       var hay=[t.title,(t.alternateNames||[]).join(' '),(t.types||[]).join(' '),(t.peaks||[]).map(function(p){return p.name}).join(' ')].join(' ').toLowerCase();
       return hay.indexOf(q)>=0;
     });
-    results.innerHTML=filtered.slice(0,250).map(card).join('')||'<div class="la-card">No matching trips.</div>';
-    list.innerHTML=filtered.map(row).join('')||'<div class="la-card">No matching trips.</div>';
+    results.innerHTML=filtered.map(card).join('')||'<div class="la-card">No matching trips.</div>';
     root.querySelector('#la-footer').textContent=filtered.length+' trips shown · '+filtered.filter(function(t){return t.location}).length+' mapped';
     updateMarkers();
-  }
-  function setView(showMap){
-    mapView.style.display=showMap?'grid':'none';list.style.display=showMap?'none':'block';mapButton.classList.toggle('active',showMap);listButton.classList.toggle('active',!showMap);if(showMap)setTimeout(function(){map.invalidateSize()},30);
   }
   fetch(DATA_URL).then(function(response){if(!response.ok)throw new Error('Archive data returned HTTP '+response.status);return response.json()}).then(function(data){
     archive=data;filtered=data.trips;
@@ -125,9 +111,9 @@
     Array.from(new Set(data.trips.reduce(function(all,t){return all.concat(t.types||[])},[]))).sort().forEach(function(value){var option=document.createElement('option');option.value=value;option.textContent=value;type.appendChild(option)});
     initializeMap();applyFilters();root.querySelector('#la-loading').style.display='none';
   }).catch(function(error){var box=root.querySelector('#la-error');root.querySelector('#la-loading').style.display='none';box.textContent='The archive could not be loaded. '+error.message;box.style.display='flex'});
-  search.addEventListener('input',function(){applyFilters();if(window.matchMedia('(max-width:760px)').matches&&search.value.trim()){setView(false);list.scrollTop=0}});
+  search.addEventListener('input',applyFilters);
   search.addEventListener('focus',function(){if(window.matchMedia('(max-width:760px)').matches){setTimeout(function(){root.querySelector('.la-controls').scrollIntoView({block:'start',behavior:'smooth'})},150)}});
   search.addEventListener('keydown',function(event){if(event.key==='Enter')search.blur()});
-  type.addEventListener('change',applyFilters);mapButton.addEventListener('click',function(){setView(true)});listButton.addEventListener('click',function(){setView(false)});
+  type.addEventListener('change',applyFilters);reportsOnly.addEventListener('change',applyFilters);
 })();
 </script>
