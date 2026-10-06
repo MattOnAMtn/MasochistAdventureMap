@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - '.github/workflows/build-fct-route.yml'
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,35 +12,36 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect CalTopo map objects
+      - name: Inspect CalTopo response structure
         shell: python
         run: |
           import json, urllib.request
           url = "https://caltopo.com/api/v1/map/0E3MB34/since/0"
           req = urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"})
-          try:
-              with urllib.request.urlopen(req, timeout=60) as r:
-                  raw = r.read()
-                  print("STATUS", r.status)
-                  print("CONTENT_TYPE", r.headers.get("content-type"))
-                  print("BYTES", len(raw))
-          except Exception as e:
-              print("FETCH_ERROR", repr(e))
-              raise
+          with urllib.request.urlopen(req, timeout=60) as r:
+              raw = r.read()
           data = json.loads(raw)
-          state = data.get("state", data)
-          feats = state.get("features", []) if isinstance(state, dict) else []
-          print("FEATURE_COUNT", len(feats))
-          for i, ft in enumerate(feats):
-              g = ft.get("geometry") or {}
-              p = ft.get("properties") or {}
-              typ = g.get("type")
-              title = p.get("title")
-              cls = p.get("class")
-              coords = g.get("coordinates")
-              n = 0
-              if typ == "LineString" and isinstance(coords, list):
-                  n = len(coords)
-              elif typ == "MultiLineString" and isinstance(coords, list):
-                  n = sum(len(x) for x in coords if isinstance(x, list))
-              print("FEATURE", i, "type=", typ, "class=", cls, "title=", repr(title), "points=", n)
+          print("TOP_TYPE", type(data).__name__)
+          if isinstance(data, dict):
+              print("TOP_KEYS", sorted(data.keys()))
+              for k,v in data.items():
+                  print("TOP_FIELD", k, type(v).__name__, (len(v) if hasattr(v,"__len__") else ""))
+          state = data.get("state") if isinstance(data, dict) else None
+          print("STATE_TYPE", type(state).__name__)
+          if isinstance(state, dict):
+              print("STATE_KEYS", sorted(state.keys()))
+              for k,v in state.items():
+                  print("STATE_FIELD", k, type(v).__name__, (len(v) if hasattr(v,"__len__") else ""))
+                  if isinstance(v, list):
+                      for i,item in enumerate(v[:20]):
+                          if isinstance(item, dict):
+                              g=item.get("geometry") or {}
+                              p=item.get("properties") or {}
+                              print("ITEM",k,i,"keys",sorted(item.keys()),"geom",g.get("type"),"class",p.get("class"),"title",repr(p.get("title")))
+          elif isinstance(state, list):
+              print("STATE_LEN", len(state))
+              for i,item in enumerate(state[:30]):
+                  if isinstance(item, dict):
+                      g=item.get("geometry") or {}
+                      p=item.get("properties") or {}
+                      print("ITEM",i,"keys",sorted(item.keys()),"geom",g.get("type"),"class",p.get("class"),"title",repr(p.get("title")))
