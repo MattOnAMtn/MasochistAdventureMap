@@ -1,0 +1,158 @@
+name: Build FCT route (one-off)
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-fct-route.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch official GPX and build compact GeoJSON
+        shell: python
+        run: |
+          import json, math, pathlib, urllib.request, xml.etree.ElementTree as ET
+
+          urls = [
+              "https://fukushima-coastal-trail.jp/assets/data/FCT_root.gpx?20260919=",
+              "https://fukushima-coastal-trail.jp/assets/data/FCT_root.gpx",
+          ]
+          data = None
+          for url in urls:
+              try:
+                  req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                  with urllib.request.urlopen(req, timeout=60) as r:
+                      data = r.read()
+                  if data:
+                      print("downloaded", len(data), "bytes from", url)
+                      break
+              except Exception as e:
+                  print("failed", url, repr(e))
+          if not data:
+              raise SystemExit("Could not download official FCT GPX")
+
+          root = ET.fromstring(data)
+
+          segments = []
+          for seg in root.findall(".//{*}trkseg"):
+              pts = []
+              for p in seg.findall("{*}trkpt"):
+                  pts.append((float(p.attrib["lon"]), float(p.attrib["lat"])))
+              if len(pts) >= 2:
+                  segments.append(pts)
+
+          if not segments:
+              pts = []
+              for p in root.findall(".//{*}rtept"):
+                  pts.append((float(p.attrib["lon"]), float(p.attrib["lat"])))
+              if len(pts) >= 2:
+                  segments = [pts]
+
+          if not segments:
+              raise SystemExit("No track or route points found in GPX")
+
+          def hav(a, b):
+              lon1, lat1 = map(math.radians, a)
+              lon2, lat2 = map(math.radians, b)
+              dlat = lat2-lat1
+              dlon = lon2-lon1
+              h = math.sin(dlat/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin(dlon/2)**2
+              return 6371000 * 2 * math.asin(min(1, math.sqrt(h)))
+
+          def distance(segs):
+              return sum(hav(a,b) for s in segs for a,b in zip(s,s[1:]))
+
+          mean_lat = sum(lat for s in segments for _,lat in s) / sum(len(s) for s in segments)
+          sx = 111320.0 * math.cos(math.radians(mean_lat))
+          sy = 110540.0
+
+          def perp_dist(p, a, b):
+              px, py = p[0]*sx, p[1]*sy
+              ax, ay = a[0]*sx, a[1]*sy
+              bx, by = b[0]*sx, b[1]*sy
+              dx, dy = bx-ax, by-ay
+              if dx == 0 and dy == 0:
+                  return math.hypot(px-ax, py-ay)
+              t = max(0.0, min(1.0, ((px-ax)*dx + (py-ay)*dy)/(dx*dx+dy*dy)))
+              qx, qy = ax+t*dx, ay+t*dy
+              return math.hypot(px-qx, py-qy)
+
+          def rdp(points, eps):
+              if len(points) <= 2:
+                  return points
+              max_d = -1.0
+              idx = 0
+              a, b = points[0], points[-1]
+              for i in range(1, len(points)-1):
+                  d = perp_dist(points[i], a, b)
+                  if d > max_d:
+                      max_d, idx = d, i
+              if max_d > eps:
+                  left = rdp(points[:idx+1], eps)
+                  right = rdp(points[idx:], eps)
+                  return left[:-1] + right
+              return [a,b]
+
+          original_m = distance(segments)
+          original_pts = sum(len(s) for s in segments)
+
+          def build(eps):
+              simplified = [rdp(s, eps) for s in segments]
+              rounded = [[[round(lon,5), round(lat,5)] for lon,lat in s] for s in simplified]
+              if len(rounded) == 1:
+                  geom = {"type":"LineString","coordinates":rounded[0]}
+              else:
+                  geom = {"type":"MultiLineString","coordinates":rounded}
+              obj = {
+                  "type":"FeatureCollection",
+                  "features":[{
+                      "type":"Feature",
+                      "properties":{"title":"Fukushima Coastal Trail"},
+                      "geometry":geom
+                  }]
+              }
+              raw = json.dumps(obj, ensure_ascii=False, separators=(",",":"))
+              return simplified, raw
+
+          chosen = None
+          for eps in (5, 8, 10, 12, 15, 20, 25, 30, 40, 60, 80):
+              simp, raw = build(eps)
+              simp_m = distance(simp)
+              loss = 1 - simp_m/original_m if original_m else 0
+              print(f"eps={eps}m points={sum(len(s) for s in simp)} bytes={len(raw.encode())} length={simp_m/1000:.2f}km loss={loss*100:.3f}%")
+              if len(raw.encode()) <= 30000 and loss <= 0.01:
+                  chosen = (eps, simp, raw, simp_m)
+                  break
+
+          if chosen is None:
+              eps = 20
+              simp, raw = build(eps)
+              chosen = (eps, simp, raw, distance(simp))
+
+          eps, simp, raw, simp_m = chosen
+          out = pathlib.Path("hikes/2026 - Fukushima Coastal Trail Japan.json")
+          out.write_text(raw + "\n", encoding="utf-8")
+          print("ORIGINAL_POINTS", original_pts)
+          print("SIMPLIFIED_POINTS", sum(len(s) for s in simp))
+          print("TOLERANCE_METERS", eps)
+          print("ORIGINAL_KM", round(original_m/1000, 3))
+          print("SIMPLIFIED_KM", round(simp_m/1000, 3))
+          print("OUTPUT_BYTES", out.stat().st_size)
+
+      - name: Commit generated route
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "hikes/2026 - Fukushima Coastal Trail Japan.json"
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Add simplified Fukushima Coastal Trail route"
+            git push
+          fi
